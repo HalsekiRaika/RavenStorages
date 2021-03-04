@@ -6,6 +6,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import raven.ravenstorages.common.registries.impl.objects.RegisteredItem;
 import raven.ravenstorages.common.registries.impl.provider.IRavenItemProvider;
 import raven.ravenstorages.common.registries.impl.wrapper.RegistryLazyWrapper;
+import raven.ravenstorages.common.tabs.TabMain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class ItemRegisterer extends RegistryLazyWrapper<Item> {
 
     // I'll set up the creative tabs and such later.
     public static Item.Properties getBaseProperties() {
-        return new Item.Properties();
+        return new Item.Properties().group(TabMain.INSTANCE);
     }
 
     public static List<IRavenItemProvider> getItems() {
