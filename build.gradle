@@ -12,6 +12,10 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
+ext {
+    sourceEncoding = "UTF-8"
+}
+
 version = '1.0'
 group = 'raven.ravenstorages' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'raven_storages'
@@ -147,4 +151,12 @@ publishing {
             url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = sourceEncoding
+}
+
+javadoc {
+    options.encoding = sourceEncoding
 }
