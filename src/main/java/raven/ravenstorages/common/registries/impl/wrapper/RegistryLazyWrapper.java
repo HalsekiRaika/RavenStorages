@@ -25,7 +25,7 @@ public class RegistryLazyWrapper <T extends IForgeRegistryEntry<T>> {
         return objectWrapper.apply(internalRegister.register(name, sup));
     }
 
-    public void Register(IEventBus eventBus) {
+    public void register(IEventBus eventBus) {
         internalRegister.register(eventBus);
     }
 }

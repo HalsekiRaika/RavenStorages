@@ -15,6 +15,6 @@ public class RavenItem {
 
     public static void onRegistration(IEventBus eventBus) {
         RavenStorages.LOGGER.info("Start Item Registration");
-        ITEM_REGISTERER.Register(eventBus);
+        ITEM_REGISTERER.register(eventBus);
     }
 }
