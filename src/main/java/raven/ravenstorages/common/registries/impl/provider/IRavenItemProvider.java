@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
+@Deprecated
 public interface IRavenItemProvider  extends IItemProvider {
     @Nonnull
     Item getItem();

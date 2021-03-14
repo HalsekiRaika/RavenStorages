@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
-
+@Deprecated
 public interface IRavenBlockProvider extends IRavenItemProvider {
     @Nonnull
     Block getBlock();

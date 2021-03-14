@@ -16,6 +16,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+@Deprecated
 public class BlockRegisterer extends RegistryComplexLazyWrapper<Block, Item> {
     private final List<IRavenBlockProvider> blocks = new ArrayList<>();
 

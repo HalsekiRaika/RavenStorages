@@ -7,6 +7,7 @@ import raven.ravenstorages.common.registries.impl.wrapper.interfaces.IHasNamedEn
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
+@Deprecated
 public class RegistryWrapper<T extends IForgeRegistryEntry<? super T>> implements Supplier<T>, IHasNamedEntry {
     @Nonnull
     protected RegistryObject<T> registryObject;

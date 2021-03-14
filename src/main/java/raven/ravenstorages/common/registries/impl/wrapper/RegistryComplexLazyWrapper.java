@@ -10,6 +10,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+@Deprecated
 public class RegistryComplexLazyWrapper<T extends IForgeRegistryEntry<T>, R extends IForgeRegistryEntry<R>> {
     private final DeferredRegister<T> _internalRegistry;
     private final DeferredRegister<R> __internalRegistry;

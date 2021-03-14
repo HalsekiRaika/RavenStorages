@@ -8,6 +8,7 @@ import raven.ravenstorages.common.items.ItemManipulator;
 import raven.ravenstorages.common.registries.impl.objects.RegisteredItem;
 import raven.ravenstorages.common.registries.registerer.ItemRegisterer;
 
+@Deprecated
 public class RavenItem {
     private static final ItemRegisterer ITEM_REGISTERER = new ItemRegisterer(Settings.MOD_ID);
 

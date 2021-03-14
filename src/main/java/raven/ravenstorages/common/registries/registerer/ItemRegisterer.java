@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+@Deprecated
 public class ItemRegisterer extends RegistryLazyWrapper<Item> {
     private static final List<IRavenItemProvider> items = new ArrayList<>();
 
@@ -38,7 +39,6 @@ public class ItemRegisterer extends RegistryLazyWrapper<Item> {
         return registeredItem;
     }
 
-    // I'll set up the creative tabs and such later.
     public static Item.Properties getBaseProperties() {
         return new Item.Properties().group(TabMain.INSTANCE);
     }

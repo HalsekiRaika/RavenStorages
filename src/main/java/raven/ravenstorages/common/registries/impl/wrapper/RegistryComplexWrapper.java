@@ -6,6 +6,7 @@ import raven.ravenstorages.common.registries.impl.wrapper.interfaces.IHasNamedEn
 
 import javax.annotation.Nonnull;
 
+@Deprecated
 public class RegistryComplexWrapper<T extends IForgeRegistryEntry<? super T>,
         R extends IForgeRegistryEntry<? super R>> implements IHasNamedEntry {
 

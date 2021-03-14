@@ -8,6 +8,7 @@ import raven.ravenstorages.common.registries.impl.wrapper.RegistryComplexWrapper
 
 import javax.annotation.Nonnull;
 
+@Deprecated
 public class RegisteredBlock<T extends Block, R extends Item> extends RegistryComplexWrapper<T, R> implements IRavenBlockProvider {
     public RegisteredBlock(RegistryObject<T> registryObjectA, RegistryObject<R> registryObjectB) {
         super(registryObjectA, registryObjectB);

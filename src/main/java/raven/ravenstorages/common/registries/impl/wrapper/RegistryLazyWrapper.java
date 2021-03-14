@@ -9,7 +9,8 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class RegistryLazyWrapper <T extends IForgeRegistryEntry<T>> {
+@Deprecated
+public class RegistryLazyWrapper<T extends IForgeRegistryEntry<T>> {
     protected final DeferredRegister<T> internalRegister;
 
     protected RegistryLazyWrapper(String modId, IForgeRegistry<T> registry) {

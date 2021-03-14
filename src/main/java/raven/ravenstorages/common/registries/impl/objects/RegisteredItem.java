@@ -6,7 +6,7 @@ import raven.ravenstorages.common.registries.impl.provider.IRavenItemProvider;
 import raven.ravenstorages.common.registries.impl.wrapper.RegistryWrapper;
 
 import javax.annotation.Nonnull;
-
+@Deprecated
 public class RegisteredItem<T extends Item> extends RegistryWrapper<Item> implements IRavenItemProvider {
     public RegisteredItem(@Nonnull RegistryObject<Item> registryObject) {
         super(registryObject);

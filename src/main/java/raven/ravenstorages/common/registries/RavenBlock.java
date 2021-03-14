@@ -5,8 +5,9 @@ import raven.ravenstorages.RavenStorages;
 import raven.ravenstorages.Settings;
 import raven.ravenstorages.common.registries.registerer.BlockRegisterer;
 
+@Deprecated
 public class RavenBlock {
-    public static final BlockRegisterer BLOCK_REGISTERER = new BlockRegisterer(Settings.MOD_ID);
+    private static final BlockRegisterer BLOCK_REGISTERER = new BlockRegisterer(Settings.MOD_ID);
 
     public static void onRegistration(IEventBus eventBus) {
         RavenStorages.LOGGER.info("Start Block Registration");
