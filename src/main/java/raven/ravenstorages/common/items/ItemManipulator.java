@@ -7,13 +7,14 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import raven.ravenstorages.common.library.functional.tile.IWrenchRetrievable;
+import raven.ravenstorages.common.tab.RavenItemGroups;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public class ItemManipulator extends Item {
-    public ItemManipulator(Properties properties) {
-        super(properties);
+    public ItemManipulator() {
+        super(new Properties().group(RavenItemGroups.RAVEN_MAIN));
     }
 
     @Nonnull
@@ -27,5 +28,9 @@ public class ItemManipulator extends Item {
         }
 
         return super.onItemUse(context);
+    }
+
+    public static ItemManipulator getInstance() {
+        return new ItemManipulator();
     }
 }

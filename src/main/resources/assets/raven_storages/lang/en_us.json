@@ -1,5 +1,7 @@
 {
-    "itemGroup.raven_storages_main": "[Main] Raven Storages",
+    "itemGroup.raven_storages": "[Main] Raven Storages",
 
-    "item.raven_storages.manipulator": "Rod of Manipulation"
+    "item.raven_storages.manipulator": "Rod of Manipulation",
+
+    "block.raven_storages.debug_anchor": "Debug Anchor"
 }

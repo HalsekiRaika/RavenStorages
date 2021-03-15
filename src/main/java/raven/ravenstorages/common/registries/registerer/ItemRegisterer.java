@@ -1,49 +1,45 @@
 package raven.ravenstorages.common.registries.registerer;
 
+import com.google.common.base.CaseFormat;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.Rarity;
-import net.minecraftforge.registries.ForgeRegistries;
-import raven.ravenstorages.common.registries.impl.objects.RegisteredItem;
-import raven.ravenstorages.common.registries.impl.provider.IRavenItemProvider;
-import raven.ravenstorages.common.registries.impl.wrapper.RegistryLazyWrapper;
-import raven.ravenstorages.common.tabs.TabMain;
+import net.minecraft.util.ResourceLocation;
+import raven.ravenstorages.common.handler.RegistrationEventHandler;
+import raven.ravenstorages.common.library.base.impl.IHasBlockItem;
+import raven.ravenstorages.common.tab.RavenItemGroups;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.Objects;
 
-@Deprecated
-public class ItemRegisterer extends RegistryLazyWrapper<Item> {
-    private static final List<IRavenItemProvider> items = new ArrayList<>();
+public class ItemRegisterer<T extends Item> {
+    private final String modId;
 
     public ItemRegisterer(String modId) {
-        super(modId, ForgeRegistries.ITEMS);
+        this.modId = modId;
     }
 
-    public RegisteredItem<Item> registry(String name) {
-        return registry(name, Item::new);
+    public T registry(T item) {
+        Class<?> blockClass = item.getClass();
+        // Cut class name prefix (e.g. ItemOperator -> Operator)
+        String resourceName = blockClass.getSimpleName().substring(4);
+               resourceName = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, resourceName);
+        return registry(item, new ResourceLocation(modId, resourceName));
     }
 
-    public RegisteredItem<Item> registry(String name, Rarity rarity) {
-        return registry(name, properties -> new Item(properties.rarity(rarity)));
+    public T registry(T item, ResourceLocation rLocation) {
+        item.setRegistryName(rLocation);
+        RegistrationEventHandler.registration(item);
+        return item;
     }
 
-    public <T extends Item> RegisteredItem<T> registry(String name, Function<Item.Properties, T> sup) {
-        return registry(name, () -> sup.apply(getBaseProperties()));
+    public void registry(IHasBlockItem block) {
+        BlockItem blockItem = block.genBlockItem(getDefaultBlockItemProperties());
+        blockItem.setRegistryName(Objects.requireNonNull(blockItem.getBlock().getRegistryName()));
+        RegistrationEventHandler.registration(blockItem);
     }
 
-    public <T extends Item> RegisteredItem<T> registry(String name, Supplier<? extends T> sup) {
-        RegisteredItem<T> registeredItem = register(name, sup, RegisteredItem::new);
-        items.add(registeredItem);
-        return registeredItem;
-    }
-
-    public static Item.Properties getBaseProperties() {
-        return new Item.Properties().group(TabMain.INSTANCE);
-    }
-
-    public static List<IRavenItemProvider> getItems() {
-        return items;
+    private static Item.Properties getDefaultBlockItemProperties() {
+        Item.Properties properties = new Item.Properties();
+        properties.group(RavenItemGroups.RAVEN_MAIN);
+        return properties;
     }
 }

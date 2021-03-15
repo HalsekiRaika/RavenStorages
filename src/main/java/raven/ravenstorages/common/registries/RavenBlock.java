@@ -1,16 +1,16 @@
 package raven.ravenstorages.common.registries;
 
-import net.minecraftforge.eventbus.api.IEventBus;
-import raven.ravenstorages.RavenStorages;
+import net.minecraft.block.Block;
 import raven.ravenstorages.Settings;
+import raven.ravenstorages.common.blocks.BlockDebugAnchor;
 import raven.ravenstorages.common.registries.registerer.BlockRegisterer;
 
-@Deprecated
 public class RavenBlock {
-    private static final BlockRegisterer BLOCK_REGISTERER = new BlockRegisterer(Settings.MOD_ID);
+    private static final BlockRegisterer<Block> BLOCK_REGISTERER = new BlockRegisterer<>(Settings.MOD_ID);
 
-    public static void onRegistration(IEventBus eventBus) {
-        RavenStorages.LOGGER.info("Start Block Registration");
-        BLOCK_REGISTERER.register(eventBus);
+    public static Block BLOCK_DEBUG;
+
+    public static void regBlock() {
+        BLOCK_DEBUG = BLOCK_REGISTERER.registry(BlockDebugAnchor.getInstance());
     }
 }
