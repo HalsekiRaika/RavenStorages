@@ -27,6 +27,7 @@ public class RegistrationEventHandler {
     private void regItems(RegistryEvent.Register<Item> event) {
         RavenStorages.LOGGER.debug("Registration Item.");
         RavenItem.regItem();
+        RavenItem.regBlockItem();
         checkout(event.getRegistry().getRegistrySuperType(), event.getRegistry());
     }
 
