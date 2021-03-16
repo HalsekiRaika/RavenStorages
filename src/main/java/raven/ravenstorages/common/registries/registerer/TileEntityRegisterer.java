@@ -11,18 +11,18 @@ import raven.ravenstorages.common.handler.RegistrationEventHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileEntityRegisterer<T extends TileEntity> {
-    private final List<TileEntityType<T>> tiles = new ArrayList<>();
+public class TileEntityRegisterer{
+    private static final List<TileEntityType<?>> tiles = new ArrayList<>();
     private final String modId;
 
     public TileEntityRegisterer(String modId) {
         this.modId = modId;
     }
 
-    public TileEntityType<T> registry(Class<T> tileClass, Block... bindTarget) {
-        String resourceName = tileClass.getSimpleName();
+    public <T extends TileEntity> TileEntityType<T> registry(Class<T> tileClass, Block... bindTarget) {
+        String resourceName = tileClass.getSimpleName().substring(4);
                resourceName = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, resourceName);
-        ResourceLocation rLocation = new ResourceLocation(modId, "tile_" + resourceName);
+        ResourceLocation rLocation = new ResourceLocation(modId, resourceName);
         TileEntityType.Builder<T> tBuilder = TileEntityType.Builder.create(() -> {
             try { return tileClass.newInstance(); }
             catch (Exception e) {
@@ -40,7 +40,7 @@ public class TileEntityRegisterer<T extends TileEntity> {
         return type;
     }
 
-    public List<TileEntityType<T>> getTiles() {
+    public static List<TileEntityType<?>> getTiles() {
         return tiles;
     }
 }
