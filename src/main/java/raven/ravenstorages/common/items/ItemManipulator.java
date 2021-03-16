@@ -1,13 +1,16 @@
 package raven.ravenstorages.common.items;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
-import raven.ravenstorages.RavenStorages;
-import raven.ravenstorages.common.library.functional.tile.IWrenchRetrievable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import raven.ravenstorages.common.library.functional.block.IWrenchRetrievable;
 import raven.ravenstorages.common.tab.RavenItemGroups;
 
 import javax.annotation.Nonnull;
@@ -21,12 +24,18 @@ public class ItemManipulator extends Item {
     @Nonnull
     @Override
     public ActionResultType onItemUse(@Nonnull ItemUseContext context) {
-        Block tileBlock = context.getWorld().getBlockState(context.getPos()).getBlock();
-        PlayerEntity player = Objects.requireNonNull(context.getPlayer(), "player data is null");
-        PlayerInventory playerInv = player.inventory;
+        World worldIn = context.getWorld();
 
-        if (tileBlock instanceof IWrenchRetrievable) {
-            return ((IWrenchRetrievable) tileBlock).onRetrieve(tileBlock, playerInv);
+        if (!worldIn.isRemote) {
+            PlayerEntity player = Objects.requireNonNull(context.getPlayer(), "player data is null");
+            if (player.isSneaking()) { // Alternate / Retrieve
+                BlockPos blockPos = context.getPos();
+                BlockState tileBlock = worldIn.getBlockState(blockPos);
+                Block block = tileBlock.getBlock();
+                if (block instanceof IWrenchRetrievable) {
+                    return ((IWrenchRetrievable) block).onRetrieve(worldIn, tileBlock, blockPos, player);
+                }
+            }
         }
 
         return ActionResultType.PASS;
