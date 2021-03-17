@@ -5,6 +5,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import raven.ravenstorages.RavenStorages;
 import raven.ravenstorages.common.library.base.BaseBlockItem;
+import raven.ravenstorages.common.library.exceptions.RavenRegisterException;
 
 public interface IHasBlockItem {
     default Class<? extends BlockItem> getBlockItem() {
@@ -19,7 +20,7 @@ public interface IHasBlockItem {
                     .newInstance(this, properties);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ClassCastException("Cannot generate BlockItem instance... " +
+            throw new RavenRegisterException("Cannot generate BlockItem instance... " +
                     "Cause Class:: " + base.getSimpleName());
         }
     }

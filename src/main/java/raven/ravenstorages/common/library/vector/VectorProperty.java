@@ -279,4 +279,9 @@ public class VectorProperty {
         );
     }
 
+    // Tile Entity
+    public static VectorProperty atCenter(TileEntity tileEntity) {
+        return new VectorProperty(tileEntity).divide(2);
+    }
+
 }
