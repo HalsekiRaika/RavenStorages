@@ -38,6 +38,8 @@ public class VectorProperty {
         );
     }
 
+    public static final VectorProperty NEUTRAL = new VectorProperty(0, 0, 0);
+
     public VectorProperty(Vector3d vector) {
         new VectorProperty(vector.x, vector.y, vector.z);
     }

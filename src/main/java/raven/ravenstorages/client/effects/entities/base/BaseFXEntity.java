@@ -1,4 +1,4 @@
-package raven.ravenstorages.client.effects.base;
+package raven.ravenstorages.client.effects.entities.base;
 
 import raven.ravenstorages.common.library.vector.VectorProperty;
 
@@ -9,7 +9,7 @@ public abstract class BaseFXEntity {
     protected static long idCounter = 0L;
     protected int age = 0;
     protected int maxAge = 50;
-    protected int rejuvenationCount;
+    protected int rejuvenationCount = 0;
 
     protected VectorProperty posProperty;
 
