@@ -1,49 +1,40 @@
 package raven.ravenstorages.common.registries.registerer;
 
-import net.minecraft.block.AbstractBlock;
+import com.google.common.base.CaseFormat;
 import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraftforge.registries.ForgeRegistries;
-import raven.ravenstorages.common.registries.impl.objects.RegisteredBlock;
-import raven.ravenstorages.common.registries.impl.provider.IRavenBlockProvider;
-import raven.ravenstorages.common.registries.impl.wrapper.RegistryComplexLazyWrapper;
-import raven.ravenstorages.common.registries.impl.wrapper.RegistryComplexWrapper;
+import net.minecraft.util.ResourceLocation;
+import raven.ravenstorages.common.handler.RegistrationEventHandler;
+import raven.ravenstorages.common.library.base.impl.IHasBlockItem;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
-public class BlockRegisterer extends RegistryComplexLazyWrapper<Block, Item> {
-    private final List<IRavenBlockProvider> blocks = new ArrayList<>();
+public class BlockRegisterer<T extends Block> {
+    private static final List<IHasBlockItem> blockItems = new ArrayList<>();
+    private final String modId;
 
-    public BlockRegisterer(String modid) {
-        super(modid, ForgeRegistries.BLOCKS, ForgeRegistries.ITEMS);
+    public BlockRegisterer(String modId) {
+        this.modId = modId;
     }
 
-    public RegistryComplexWrapper<Block, BlockItem> register(String name, AbstractBlock.Properties properties) {
-        return registerBaseProperties(name, () -> new Block(properties), BlockItem::new);
+    public T registry(T block) {
+        Class<?> blockClass = block.getClass();
+        // Cut class name prefix (e.g. BlockOperator -> Operator)
+        String resourceName = blockClass.getSimpleName().substring(5);
+               resourceName = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, resourceName);
+        return registry(block, new ResourceLocation(modId, resourceName));
     }
 
-    public <T extends Block> RegistryComplexWrapper<T, BlockItem> register(String name, Supplier<? extends T> blockSupplier) {
-        return registerBaseProperties(name, blockSupplier, BlockItem::new);
+    public T registry(T block, ResourceLocation rLocation) {
+        block.setRegistryName(rLocation);
+        RegistrationEventHandler.registration(block);
+        if (block instanceof IHasBlockItem){
+            blockItems.add((IHasBlockItem) block);
+        }
+        return block;
     }
 
-    public <T extends Block, R extends BlockItem> RegistryComplexWrapper<T, R> registerBaseProperties(
-            String name, Supplier<? extends T> blockSupplier, BiFunction<T, Item.Properties, R> itemCreator) {
-        return register(name, blockSupplier, block -> itemCreator.apply(block, ItemRegisterer.getBaseProperties()));
-    }
-
-    public <T extends Block, R extends BlockItem> RegistryComplexWrapper<T, R> register(
-            String name, Supplier<? extends T> blockSupplier, Function<T, R> itemCreator) {
-        RegisteredBlock<T, R> registeredBlock = register(name, blockSupplier, itemCreator, RegisteredBlock::new);
-        blocks.add(registeredBlock);
-        return registeredBlock;
-    }
-
-    public List<IRavenBlockProvider> getAllBlocks() {
-        return blocks;
+    public static List<IHasBlockItem> getBlockItems() {
+        return blockItems;
     }
 }
