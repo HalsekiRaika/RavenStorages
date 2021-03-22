@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "": {
-            "model": "raven_storages:block/debug_anchor"
-        }
-    }
-}

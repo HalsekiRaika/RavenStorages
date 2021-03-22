@@ -1,6 +1,0 @@
-{
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "raven_storages:block/debug_anchor"
-    }
-}
