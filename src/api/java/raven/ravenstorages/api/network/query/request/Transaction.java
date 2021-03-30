@@ -10,5 +10,8 @@ import java.util.List;
  */
 public interface Transaction {
     @Nonnull
-    <T> List<SizedRequirement<T>> requirements(@Nonnull ResourceIdentifier<T> identifier);
+    <T> List<SizedRequirement<T>> insertions(@Nonnull ResourceIdentifier<T> identifier, @Nonnull InsertionPurpose purpose);
+
+    @Nonnull
+    <T> List<SizedRequirement<T>> extractions(@Nonnull ResourceIdentifier<T> identifier, @Nonnull ExtractionPurpose purpose);
 }
