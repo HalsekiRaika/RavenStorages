@@ -27,7 +27,7 @@ public interface Request {
      *     <li>MANUAL</li>
      *     全てのストレージにアクセス可能です。
      *     <li>AUTOMATION</li>
-     *     取り置き倉庫以外にアクセス可能です。
+     *     取り置きストレージ以外にアクセス可能です。
      * </ul>
      * <p>倉庫はこのメソッドにより返されるRequirementを満たす資源の量を調べてレスポンスを返します。
      *
