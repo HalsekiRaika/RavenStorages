@@ -32,10 +32,10 @@ public interface Transaction {
      * @param purpose 倉庫への搬入目的
      * @param <T> 資源の型
      * @return 搬入命令のリスト
-     * @see InsertionPurpose
+     * @see InsertionMethod
      */
     @Nonnull
-    <T> List<SizedRequirement<T>> insertions(@Nonnull ResourceIdentifier<T> identifier, @Nonnull InsertionPurpose purpose);
+    <T> List<SizedRequirement<T>> insertions(@Nonnull ResourceIdentifier<T> identifier, @Nonnull InsertionMethod purpose);
 
     /**
      * 倉庫への搬出命令を取得します。
@@ -55,5 +55,5 @@ public interface Transaction {
      * @return 搬出命令のリスト
      */
     @Nonnull
-    <T> List<SizedRequirement<T>> extractions(@Nonnull ResourceIdentifier<T> identifier, @Nonnull ExtractionPurpose purpose);
+    <T> List<SizedRequirement<T>> extractions(@Nonnull ResourceIdentifier<T> identifier, @Nonnull ExtractionMethod purpose);
 }

@@ -13,31 +13,31 @@ import java.util.List;
  * <p>倉庫へのアクセスを行う場合は必ずその目的を指定する必要があります。倉庫はアクセスの目的を解釈して実際に在庫検索を行うストレージを制限します。
  * 倉庫に対して正しく目的を示す事で自動加工システムによる資材の使い潰しを防いだり、無駄な加工による資源の消費を防ぐことが出来ます。
  *
- * @see ExtractionPurpose
- * @see InsertionPurpose
+ * @see ExtractionMethod
+ * @see InsertionMethod
  */
 public interface Request {
 
     /**
      * 倉庫への検索対象のリストを返します。
      *
-     * <p>指定されたidentifier及びpurposeに対応する検索対象を返します。対応する検索対象が存在しない場合、空のリストを返します。
-     * <p>purposeによってアクセスできるストレージの制限が異なります。ExtractionPurposeとアクセス可能なストレージの対応は以下の通りです。
+     * <p>指定されたidentifier及びmethodに対応する検索対象を返します。対応する検索対象が存在しない場合、空のリストを返します。
+     * <p>methodによってアクセスできるストレージの制限が異なります。ExtractionMethodとアクセス可能なストレージの対応は以下の通りです。
      * <ul>
      *     <li>MANUAL</li>
      *     全てのストレージにアクセス可能です。
      *     <li>AUTOMATION</li>
-     *     取り置きストレージ以外にアクセス可能です。
+     *     制限ストレージ、VOIDストレージ、デフォルトストレージにアクセス可能です。
      * </ul>
      * <p>倉庫はこのメソッドにより返されるRequirementを満たす資源の量を調べてレスポンスを返します。
      *
      * @param identifier 資源の種類を表す識別子
-     * @param purpose 倉庫へのアクセスの目的
+     * @param method 倉庫へのアクセスの目的
      * @param <T> 資源の型
      * @return 検索対象のリスト
      */
     @Nonnull
-    <T> List<Requirement<T>> retrievalTargets(@Nonnull ResourceIdentifier<T> identifier, @Nonnull ExtractionPurpose purpose);
+    <T> List<Requirement<T>> retrievalTargets(@Nonnull ResourceIdentifier<T> identifier, @Nonnull ExtractionMethod method);
 
     /**
      * 倉庫への輸送対象のリストを返します。
