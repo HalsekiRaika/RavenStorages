@@ -28,7 +28,7 @@ public interface ResourceStack<T> {
     /**
      * スタックサイズを返します。
      *
-     * <p>スタックサイズの範囲[0, Long.MAX_VALUE]です。
+     * <p>スタックサイズの範囲[1, Long.MAX_VALUE]です。
      *
      * @return スタックサイズ
      */
