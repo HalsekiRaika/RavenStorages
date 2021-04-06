@@ -5,7 +5,7 @@ import raven.ravenstorages.api.storage.ResourceStack;
 import javax.annotation.Nonnull;
 
 /**
- * 資源の搬入要件1件を表すインターフェース。
+ * 資源の搬入要件1件を表すインターフェースです。
  *
  * <p>搬入要件は倉庫に対する一種類の資源の搬入命令と、搬入結果に対する処理からなります。
  * 倉庫はstackToInsertとallowsPartialInsertionにより搬入する資源の量を調べ、倉庫に対して搬入を行います。
