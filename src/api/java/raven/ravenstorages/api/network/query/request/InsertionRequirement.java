@@ -38,4 +38,6 @@ public interface InsertionRequirement<T> {
      * @param amountOfInserted 搬入された資源の量
      */
     void handleResult(long amountOfInserted);
+
+
 }

@@ -8,7 +8,7 @@ package raven.ravenstorages.api.network.query.request;
  *     <li>MANUAL</li>
  *     全てのストレージにアクセス可能です。
  *     <li>AUTOMATION</li>
- *     制限ストレージ、VOIDストレージ、デフォルトストレージにアクセス可能です。
+ *     制限ストレージ、デフォルトストレージにアクセス可能です。
  * </ul>
  */
 public enum ExtractionMethod {
@@ -21,5 +21,5 @@ public enum ExtractionMethod {
     /**
      * 自動加工のための搬出方式を表すシングルトンインスタンス。
      */
-    AUTOMATION;
+    AUTOMATION
 }
