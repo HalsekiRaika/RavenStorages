@@ -6,17 +6,12 @@ package raven.ravenstorages.api.network.query.request;
  * <p>検索方式によってアクセス可能なストレージが異なります。
  * InsertionMethod及びExtractionMethodと同名の方式では同じストレージにアクセスできます。
  */
-public enum StorageViewMethod {
+public enum RetrievalMethod {
 
     /**
      * デフォルトストレージの検索を表すシングルトンインスタンス。
      */
     DEFAULT,
-
-    /**
-     * VOIDストレージの検索を表すシングルトンインスタンス。
-     */
-    VOID,
 
     /**
      * 制限ストレージの検索を表すシングルトンインスタンス。
