@@ -20,20 +20,13 @@ public interface Transaction {
      * 倉庫への搬入要件のリストを取得します。
      *
      * <p>指定された資源識別子及び搬入方式に対応する搬入要件のリストを返します。資源識別子と搬入方式に対応する搬入要件が存在しない場合空のリストを返します。
-     * <p>指定された搬入方式によってアクセスできるストレージが異なります。InsertionMethodとアクセス可能なストレージの対応は以下の通りです。
-     * <ul>
-     *     <li>MANUAL</li>
-     *     全てのストレージにアクセス可能です。
-     *     <li>HALTING</li>
-     *     取り置きストレージと制限ストレージにアクセス可能です。
-     *     <li>VOIDING</li>
-     *     取り置きストレージと制限ストレージとVOIDストレージにアクセス可能です。
-     * </ul>
+     * <p>指定された搬入方式によってアクセスできるストレージが異なります。詳細はInsertionMethodを参照してください。
      *
      * @param identifier 資源識別子
      * @param method 倉庫への搬入方式
      * @param <T> 資源の型
      * @return 資源識別子と搬入方式に対応する搬入要件のリスト
+     * @see InsertionMethod
      */
     @Nonnull
     <T> List<InsertionRequirement<T>> insertions(@Nonnull ResourceIdentifier<T> identifier, @Nonnull InsertionMethod method);
@@ -42,18 +35,13 @@ public interface Transaction {
      * 倉庫への搬出要件のリストを取得します。
      *
      * <p>指定された資源識別子及び搬出方式に対応する搬出対象を返します。資源識別子と搬入方式に対応する搬出要件が存在しない場合空のリストを返します。
-     * <p>指定された搬出方式によってアクセスできるストレージが異なります。ExtractionMethodとアクセス可能なストレージの対応は以下の通りです。
-     * <ul>
-     *     <li>MANUAL</li>
-     *     全てのストレージにアクセス可能です。
-     *     <li>AUTOMATION</li>
-     *     取り置きストレージ以外にアクセス可能です。
-     * </ul>
+     * <p>指定された搬出方式によってアクセスできるストレージが異なります。詳細はExtractionMethodを参照してください。
      *
      * @param identifier 資源識別子
      * @param method 搬出方式
      * @param <T> 資源の型
      * @return 資源識別子と搬出方式に対応する搬出要件のリスト
+     * @see ExtractionMethod
      */
     @Nonnull
     <T> List<ExtractionRequirement<T>> extractions(@Nonnull ResourceIdentifier<T> identifier, @Nonnull ExtractionMethod method);
