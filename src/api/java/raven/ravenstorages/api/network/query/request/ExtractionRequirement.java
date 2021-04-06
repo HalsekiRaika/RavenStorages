@@ -1,5 +1,6 @@
 package raven.ravenstorages.api.network.query.request;
 
+import raven.ravenstorages.api.storage.ResourceIdentifier;
 import raven.ravenstorages.api.storage.ResourceStack;
 
 import javax.annotation.Nonnull;
@@ -16,6 +17,7 @@ import java.util.OptionalLong;
  * また実際に搬出された資源を引数としてhandleResultを呼び出します。
  *
  * @param <T> 資源の型
+ * @see ResourceIdentifier
  */
 public interface ExtractionRequirement<T> {
 

@@ -1,5 +1,6 @@
 package raven.ravenstorages.api.network.query.request;
 
+import raven.ravenstorages.api.storage.ResourceIdentifier;
 import raven.ravenstorages.api.storage.ResourceStack;
 
 import javax.annotation.Nonnull;
@@ -12,6 +13,7 @@ import java.util.List;
  * 倉庫はcanAcceptにより管理下の資源が検索対象であるのか検証します。その後検索条件に合致する資源のリストによりhandleResultを呼び出します。
  *
  * @param <T> 資源の型
+ * @see ResourceIdentifier
  */
 public interface RetrievalRequirement<T> {
 

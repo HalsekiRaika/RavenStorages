@@ -13,8 +13,6 @@ import java.util.List;
  * <p>搬入から処理されるか、搬出から処理されるかは実装に依存します。
  *
  * @see ResourceIdentifier
- * @see InsertionMethod
- * @see ExtractionMethod
  */
 public interface Transaction {
 
@@ -36,8 +34,6 @@ public interface Transaction {
      * @param method 倉庫への搬入方式
      * @param <T> 資源の型
      * @return 資源識別子と搬入方式に対応する搬入要件のリスト
-     * @see ResourceIdentifier
-     * @see InsertionMethod
      */
     @Nonnull
     <T> List<InsertionRequirement<T>> insertions(@Nonnull ResourceIdentifier<T> identifier, @Nonnull InsertionMethod method);
@@ -58,8 +54,6 @@ public interface Transaction {
      * @param method 搬出方式
      * @param <T> 資源の型
      * @return 資源識別子と搬出方式に対応する搬出要件のリスト
-     * @see ResourceIdentifier
-     * @see ExtractionMethod
      */
     @Nonnull
     <T> List<ExtractionRequirement<T>> extractions(@Nonnull ResourceIdentifier<T> identifier, @Nonnull ExtractionMethod method);
