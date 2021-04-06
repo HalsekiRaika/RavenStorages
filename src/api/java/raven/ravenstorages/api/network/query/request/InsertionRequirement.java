@@ -33,7 +33,7 @@ public interface InsertionRequirement<T> {
     /**
      * 搬入された資源の量に応じる処理を行います。
      *
-     * <p>倉庫のクライアントはamountOfInsertedに応じて輸送元の資源を減らす必要があります。
+     * <p>このメソッドはamountOfInsertedに応じて輸送元の資源を減らす必要があります。
      *
      * @param amountOfInserted 搬入された資源の量
      */
