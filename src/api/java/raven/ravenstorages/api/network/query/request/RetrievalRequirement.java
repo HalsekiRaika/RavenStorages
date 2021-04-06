@@ -16,12 +16,12 @@ import java.util.List;
 public interface RetrievalRequirement<T> {
 
     /**
-     * 検索条件を定義します。
+     * 資源の検索条件を定義します。
      *
      * @param storedResource 倉庫内の資源
      * @return 引数が検索条件に合致する場合true
      */
-    boolean canAccept(@Nonnull T storedResource);
+    boolean canAccept(@Nonnull ResourceStack<T> storedResource);
 
     /**
      * 検索条件に合致した資源を用いた処理を行います。
