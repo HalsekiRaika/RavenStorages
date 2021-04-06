@@ -8,8 +8,8 @@ import javax.annotation.Nonnull;
  * 資源の搬入要件1件を表すインターフェースです。
  *
  * <p>搬入要件は倉庫に対する一件の搬入命令と、搬入結果に対する処理からなります。
- * 倉庫はstackToInsertとallowsPartialInsertionにより搬入する資源の量を調べ、倉庫に対して搬入を行います。
- * その後実際に搬入された資源の量を元にhandleResultを呼び出します
+ * 倉庫は各メソッドにより搬入する資源を決定し、倉庫の資源を増加させます。
+ * また実際に搬入された資源を引数としてhandleResultを呼び出します
  *
  * @param <T> 資源の型
  */
@@ -26,7 +26,7 @@ public interface InsertionRequirement<T> {
     /**
      * 搬入可能な量が指定個数未満の場合に搬入するか定義します。
      *
-     * @return 部分的な搬入を許可する場合true
+     * @return 指定個数未満の搬入を許可する場合true
      */
     boolean allowsPartialInsertion();
 
