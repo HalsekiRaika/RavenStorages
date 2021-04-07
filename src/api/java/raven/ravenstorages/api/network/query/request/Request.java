@@ -8,44 +8,38 @@ import java.util.List;
 /**
  * 倉庫に対するクエリ1件の内容を表すインターフェースです。
  *
- * <p>クエリ1件は検索対象及び搬入、搬出それぞれの対象のリストからなります。
- * 倉庫にアクセスするシステムはあるtickにおいて必要な検索、輸送の情報を1つのRequestにまとめる事が出来ます。
- * <p>倉庫へのアクセスを行う場合は必ずその目的を指定する必要があります。倉庫はアクセスの目的を解釈して実際に在庫検索を行うストレージを制限します。
+ * <p>クエリ1件は検索要件及び輸送要件のリストからなります。ある時点において必要な全ての検索、輸送命令を1つのRequestにまとめる事が出来ます。
+ * <p>倉庫へのアクセスを行う場合は必ずアクセス方式を指定する必要があります。倉庫はアクセス方式を解釈して実際に取り扱うストレージを決定します。
  * 倉庫に対して正しく目的を示す事で自動加工システムによる資材の使い潰しを防いだり、無駄な加工による資源の消費を防ぐことが出来ます。
  *
- * @see ExtractionMethod
- * @see InsertionMethod
+ * <p>検索から処理されるか輸送から処理されるかは実装依存です。
+ *
+ * @see ResourceIdentifier
  */
 public interface Request {
 
     /**
-     * 倉庫への検索対象のリストを返します。
+     * 倉庫への検索要件のリストを返します。
      *
-     * <p>指定されたidentifier及びmethodに対応する検索対象を返します。対応する検索対象が存在しない場合、空のリストを返します。
-     * <p>methodによってアクセスできるストレージの制限が異なります。ExtractionMethodとアクセス可能なストレージの対応は以下の通りです。
-     * <ul>
-     *     <li>MANUAL</li>
-     *     全てのストレージにアクセス可能です。
-     *     <li>AUTOMATION</li>
-     *     制限ストレージ、VOIDストレージ、デフォルトストレージにアクセス可能です。
-     * </ul>
-     * <p>倉庫はこのメソッドにより返されるRequirementを満たす資源の量を調べてレスポンスを返します。
+     * <p>指定された資源識別子及び検索方式に対応する検索対象を返します。対応する検索対象が存在しない場合、空のリストを返します。
+     * <p>指定された検索方式によってアクセスできるストレージが異なります。詳細はRetrievalMethodを参照してください。
      *
-     * @param identifier 資源の種類を表す識別子
-     * @param method 倉庫へのアクセスの目的
+     * @param identifier 資源識別子
+     * @param method 検索方式
      * @param <T> 資源の型
      * @return 検索対象のリスト
+     * @see RetrievalMethod
      */
     @Nonnull
-    <T> List<Requirement<T>> retrievalTargets(@Nonnull ResourceIdentifier<T> identifier, @Nonnull ExtractionMethod method);
+    <T> List<RetrievalRequirement<T>> retrievalTargets(@Nonnull ResourceIdentifier<T> identifier, @Nonnull RetrievalMethod method);
 
     /**
-     * 倉庫への輸送対象のリストを返します。
+     * 倉庫への輸送要件のリストを返します。
      *
-     * <p>倉庫はこのメソッドにより返されるTransactionを順に処理し、実際に輸送が行われた資源の量を求めてレスポンスを返します。
-     * Transaction1件はアトミックな輸送1件を示し、その中の輸送が全て行われるか、又は全て失敗することが保証されています。
+     * <p>倉庫はこのメソッドにより返されるTransactionを順に処理します。Transaction1件はアトミックに処理される複数の輸送要件を表しており、
+     * 全ての輸送が成功するか、そうでない場合輸送が行われない事が保証されています。
      *
-     * @return アトミックに行われる輸送のリスト
+     * @return アトミックに行われる輸送要件のリスト
      */
     @Nonnull
     List<Transaction> transportTargets();

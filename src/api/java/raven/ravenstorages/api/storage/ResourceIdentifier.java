@@ -1,7 +1,5 @@
 package raven.ravenstorages.api.storage;
 
-import raven.ravenstorages.api.network.query.request.Requirement;
-
 /**
  * 資源の種類の識別子を表すインターフェースです。
  *
@@ -9,10 +7,9 @@ import raven.ravenstorages.api.network.query.request.Requirement;
  * 型Tが同じである資源は同種の資源と判断されます。
  * ただしここで同種であるとはスタック可能であるアイテムのようにゲーム内の同じ資源であると言う事を意味しているわけではありません。
  * 同種であるとは同じ種類の資源同士でスタック可能か否かを調べたり型Tの実装によっては比較を行うことが出来るという事を意味します。
- * <p>型Tは{@link Requirement}や{@link ResourceStack}等で利用され、倉庫の検索や輸送に利用されます。
+ * <p>型Tは{@link ResourceStack}や各種Requirement等資源を扱う型で利用され、倉庫の検索や輸送に利用されます。
  *
  * @param <T> 資源の型
- * @see Requirement
  * @see ResourceStack
  */
 public interface ResourceIdentifier<T> {
