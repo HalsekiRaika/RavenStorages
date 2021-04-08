@@ -21,36 +21,44 @@ public final class MaterialBuilder {
         pushReaction = PushReaction.NORMAL;
     }
 
-    public void setColor(@Nonnull MaterialColor color) {
+    public MaterialBuilder setColor(@Nonnull MaterialColor color) {
         this.color = color;
+        return this;
     }
 
-    public void setLiquid(boolean liquid) {
+    public MaterialBuilder setLiquid(boolean liquid) {
         isLiquid = liquid;
+        return this;
     }
 
-    public void setSolid(boolean solid) {
+    public MaterialBuilder setSolid(boolean solid) {
         isSolid = solid;
+        return this;
     }
 
-    public void setBlocksMovement(boolean blocksMovement) {
+    public MaterialBuilder setBlocksMovement(boolean blocksMovement) {
         this.blocksMovement = blocksMovement;
+        return this;
     }
 
-    public void setOpaque(boolean opaque) {
+    public MaterialBuilder setOpaque(boolean opaque) {
         isOpaque = opaque;
+        return this;
     }
 
-    public void setFlammable(boolean flammable) {
+    public MaterialBuilder setFlammable(boolean flammable) {
         this.flammable = flammable;
+        return this;
     }
 
-    public void setReplaceable(boolean replaceable) {
+    public MaterialBuilder setReplaceable(boolean replaceable) {
         this.replaceable = replaceable;
+        return this;
     }
 
-    public void setPushReaction(@Nonnull PushReaction pushReaction) {
+    public MaterialBuilder setPushReaction(@Nonnull PushReaction pushReaction) {
         this.pushReaction = pushReaction;
+        return this;
     }
 
     @Nonnull
