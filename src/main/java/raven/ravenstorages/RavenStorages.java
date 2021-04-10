@@ -2,6 +2,8 @@ package raven.ravenstorages;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -13,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import raven.ravenstorages.client.ClientProxy;
 import raven.ravenstorages.common.blocks.RavenBlocks;
+import raven.ravenstorages.common.blocks.tiles.RavenTiles;
 import raven.ravenstorages.common.proxy.CommonProxy;
 
 import static raven.ravenstorages.Settings.MOD_ID;
@@ -30,5 +33,6 @@ public class RavenStorages {
         this.proxy.attachLifeCycle(eventBus);
 
         eventBus.addGenericListener(Block.class, RavenBlocks::register);
+        eventBus.addGenericListener(TileEntityType.class, RavenTiles::register);
     }
 }
