@@ -5,12 +5,8 @@ import net.minecraft.block.material.Material;
 import raven.ravenstorages.common.library.base.impl.IHasBlockItem;
 import raven.ravenstorages.common.library.functional.block.IWrenchRetrievable;
 
-public class BlockDebugAnchor extends Block implements IWrenchRetrievable, IHasBlockItem {
-    public BlockDebugAnchor() {
+public final class DebugAnchorBlock extends Block implements IWrenchRetrievable, IHasBlockItem {
+    DebugAnchorBlock() {
         super(Properties.create(Material.IRON));
-    }
-
-    public static BlockDebugAnchor getInstance() {
-        return new BlockDebugAnchor();
     }
 }

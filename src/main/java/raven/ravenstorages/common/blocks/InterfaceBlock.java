@@ -10,8 +10,8 @@ import raven.ravenstorages.common.blocks.tiles.RavenTiles;
 import javax.annotation.Nullable;
 
 //TODO ブロックの正式名称の決定
-public final class InterfaceCrystalBlock extends Block {
-    InterfaceCrystalBlock() {
+public final class InterfaceBlock extends Block {
+    InterfaceBlock() {
         super(Properties.create(Material.IRON));
     }
 
@@ -23,6 +23,6 @@ public final class InterfaceCrystalBlock extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return RavenTiles.INTERFACE_CRYSTAL.create();
+        return RavenTiles.INTERFACE.create();
     }
 }

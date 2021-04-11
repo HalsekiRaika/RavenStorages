@@ -5,7 +5,7 @@ import net.minecraftforge.event.RegistryEvent;
 
 import javax.annotation.Nonnull;
 
-import static raven.ravenstorages.Settings.MOD_ID;
+import static raven.ravenstorages.RavenStorages.MOD_ID;
 
 /**
  * RavenStoragesで実装されるBlockの参照を保持するユーティリティクラス。
@@ -15,16 +15,22 @@ public final class RavenBlocks {
         throw new AssertionError();
     }
 
-    public static final Block INTERFACE_CRYSTAL = new InterfaceCrystalBlock().setRegistryName(MOD_ID, "interface_crystal");
+    public static final Block DEBUG_ANCHOR = new DebugAnchorBlock().setRegistryName(MOD_ID, "debug_anchor");
+    public static final Block INTERFACE = new InterfaceBlock().setRegistryName(MOD_ID, "interface");
+    public static final Block CONTROLLER = new ControllerBlock().setRegistryName(MOD_ID, "controller");
+    public static final Block READER = new ReaderBlock().setRegistryName(MOD_ID, "reader");
 
     /**
-     * 全てのブロックをeventの返すRegisterに登録します
+     * 全てのブロックをeventの返すRegistryに登録します
      *
      * @param event Registerイベント
      */
     public static void register(@Nonnull RegistryEvent.Register<Block> event) {
         event.getRegistry().registerAll(
-            INTERFACE_CRYSTAL
+            DEBUG_ANCHOR,
+            INTERFACE,
+            CONTROLLER,
+            READER
         );
     }
 }
