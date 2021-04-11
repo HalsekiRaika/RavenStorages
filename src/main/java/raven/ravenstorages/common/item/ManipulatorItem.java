@@ -1,4 +1,4 @@
-package raven.ravenstorages.common.items;
+package raven.ravenstorages.common.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -9,13 +9,13 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import raven.ravenstorages.common.library.functional.block.IWrenchRetrievable;
-import raven.ravenstorages.common.tab.RavenItemGroups;
+import raven.ravenstorages.common.itemgroup.RavenItemGroups;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
-public class ItemManipulator extends Item {
-    public ItemManipulator() {
+public class ManipulatorItem extends Item {
+    ManipulatorItem() {
         super(new Properties().group(RavenItemGroups.RAVEN_MAIN));
     }
 
@@ -37,9 +37,5 @@ public class ItemManipulator extends Item {
         }
 
         return ActionResultType.PASS;
-    }
-
-    public static ItemManipulator getInstance() {
-        return new ItemManipulator();
     }
 }

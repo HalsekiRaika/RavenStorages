@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import raven.ravenstorages.common.handler.RegistrationEventHandler;
 import raven.ravenstorages.common.library.base.impl.IHasBlockItem;
-import raven.ravenstorages.common.tab.RavenItemGroups;
+import raven.ravenstorages.common.itemgroup.RavenItemGroups;
 
 import java.util.Objects;
 

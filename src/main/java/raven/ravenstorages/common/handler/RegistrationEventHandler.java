@@ -3,16 +3,12 @@ package raven.ravenstorages.common.handler;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import raven.ravenstorages.RavenStorages;
-import raven.ravenstorages.common.registries.RavenBlock;
-import raven.ravenstorages.common.registries.RavenItem;
-import raven.ravenstorages.common.registries.RavenTileEntity;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,20 +26,20 @@ public class RegistrationEventHandler {
 
     private void regItems(RegistryEvent.Register<Item> event) {
         RavenStorages.LOGGER.debug("Registration Item.");
-        RavenItem.regItem();
-        RavenItem.regBlockItem();
+        //RavenItem.regItem();
+        //RavenItem.regBlockItem();
         checkout(event.getRegistry().getRegistrySuperType(), event.getRegistry());
     }
 
     private void regBlocks(RegistryEvent.Register<Block> event) {
         RavenStorages.LOGGER.debug("Registration Block.");
-        RavenBlock.regBlock();
+        //RavenBlock.regBlock();
         checkout(event.getRegistry().getRegistrySuperType(), event.getRegistry());
     }
 
     private void regTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
         RavenStorages.LOGGER.debug("Registration TileEntity.");
-        RavenTileEntity.regTile();
+        //RavenTileEntity.regTile();
         checkout(event.getRegistry().getRegistrySuperType(), event.getRegistry());
     }
 
