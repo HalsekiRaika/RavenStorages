@@ -2,8 +2,8 @@ package raven.ravenstorages.common.blocks.tiles;
 
 import net.minecraft.tileentity.TileEntity;
 
-public class TileDebugAnchor extends TileEntity {
-    TileDebugAnchor() {
+public class DebugAnchorTile extends TileEntity {
+    DebugAnchorTile() {
         super(RavenTiles.DEBUG_ANCHOR);
     }
 }
