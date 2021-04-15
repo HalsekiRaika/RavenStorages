@@ -6,18 +6,15 @@ import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
 import raven.ravenstorages.tiles.RavenTiles;
-import raven.ravenstorages.library.base.impl.IHasBlockItem;
-import raven.ravenstorages.library.functional.block.IWrenchRetrievable;
 
 import javax.annotation.Nullable;
 
-//TODO ブロックの正式名称の決定
-public final class ReaderBlock extends Block implements IWrenchRetrievable, IHasBlockItem {
-    ReaderBlock() {
+public final class AccessPointBlock extends Block {
+    AccessPointBlock() {
         super(Properties.create(Material.IRON)
-                .doesNotBlockMovement()
-                .hardnessAndResistance(4.0f)
-                .harvestLevel(0));
+            .doesNotBlockMovement()
+            .hardnessAndResistance(4.0f)
+            .harvestLevel(0));
     }
 
     @Override
@@ -28,6 +25,6 @@ public final class ReaderBlock extends Block implements IWrenchRetrievable, IHas
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return RavenTiles.READER.create();
+        return RavenTiles.ACCESS_POINT.create();
     }
 }
