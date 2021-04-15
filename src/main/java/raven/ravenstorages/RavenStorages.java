@@ -16,7 +16,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import raven.ravenstorages.blocks.RavenBlocks;
-import raven.ravenstorages.blocks.tiles.RavenTiles;
+import raven.ravenstorages.tiles.RavenTiles;
 import raven.ravenstorages.capability.CapabilityDebugHandler;
 import raven.ravenstorages.capability.CapabilityDebugHandler.DebugHandler;
 import raven.ravenstorages.capability.SingleCapabilityProvider;

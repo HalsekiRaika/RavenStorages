@@ -1,4 +1,4 @@
-package raven.ravenstorages.blocks.tiles;
+package raven.ravenstorages.tiles;
 
 import net.minecraft.tileentity.TileEntity;
 

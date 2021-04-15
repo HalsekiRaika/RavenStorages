@@ -5,7 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
-import raven.ravenstorages.blocks.tiles.RavenTiles;
+import raven.ravenstorages.tiles.RavenTiles;
 
 import javax.annotation.Nullable;
 
