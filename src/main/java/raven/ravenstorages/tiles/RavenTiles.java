@@ -1,4 +1,4 @@
-package raven.ravenstorages.blocks.tiles;
+package raven.ravenstorages.tiles;
 
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
@@ -20,13 +20,15 @@ public final class RavenTiles {
     public static final TileEntityType<InterfaceTile> INTERFACE = create(InterfaceTile::new, "interface", RavenBlocks.INTERFACE);
     public static final TileEntityType<ControllerTile> CONTROLLER = create(ControllerTile::new, "controller", RavenBlocks.CONTROLLER);
     public static final TileEntityType<ReaderTile> READER = create(ReaderTile::new, "reader", RavenBlocks.READER);
+    public static final TileEntityType<AccessPointTile> ACCESS_POINT = create(AccessPointTile::new, "access_point", RavenBlocks.ACCESS_POINT);
 
     public static void register(@Nonnull RegistryEvent.Register<TileEntityType<?>> register) {
         register.getRegistry().registerAll(
             DEBUG_ANCHOR,
             INTERFACE,
             CONTROLLER,
-            READER
+            READER,
+            ACCESS_POINT
         );
     }
 

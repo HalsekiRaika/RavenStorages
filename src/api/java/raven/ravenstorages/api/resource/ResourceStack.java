@@ -1,4 +1,4 @@
-package raven.ravenstorages.api.storage;
+package raven.ravenstorages.api.resource;
 
 import javax.annotation.Nonnull;
 
