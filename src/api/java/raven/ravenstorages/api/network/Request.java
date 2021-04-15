@@ -1,4 +1,4 @@
-package raven.ravenstorages.api.network.query.request;
+package raven.ravenstorages.api.network;
 
 import raven.ravenstorages.api.storage.ResourceIdentifier;
 

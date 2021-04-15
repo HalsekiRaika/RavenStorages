@@ -1,4 +1,4 @@
-package raven.ravenstorages.api.network.query.request;
+package raven.ravenstorages.api.network;
 
 /**
  * 倉庫に対する資源の搬入時に指定される方式の列挙です。
@@ -28,5 +28,5 @@ public enum InsertionMethod {
     /**
      * 倉庫が満杯になった時に余剰分を消去する方式を表すシングルトンインスタンス。
      */
-    VOIDING;
+    VOIDING
 }

@@ -1,4 +1,4 @@
-package raven.ravenstorages.api.network.query.request;
+package raven.ravenstorages.api.network;
 
 /**
  * 倉庫に対する資源の検索時に指定される方式の列挙です。

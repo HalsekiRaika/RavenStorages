@@ -1,4 +1,4 @@
-package raven.ravenstorages.api.network.query.request;
+package raven.ravenstorages.api.network;
 
 /**
  * 倉庫からの資源の搬出時に指定される方式の列挙です。
