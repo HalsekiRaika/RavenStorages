@@ -5,6 +5,8 @@ import net.minecraftforge.event.RegistryEvent;
 
 import javax.annotation.Nonnull;
 
+import static raven.ravenstorages.RavenStorages.MOD_ID;
+
 /**
  * RavenStoragesで実装されるItemの参照を保持するユーティリティクラスです。
  */
@@ -13,7 +15,8 @@ public final class RavenItems {
         throw new AssertionError();
     }
 
-    public static final Item MANIPULATOR = new ManipulatorItem();
+    public static final Item DEBUGGER = new DebuggerItem().setRegistryName(MOD_ID, "debugger");
+    public static final Item MANIPULATOR = new ManipulatorItem().setRegistryName(MOD_ID, "manipulator");
 
     /**
      * 全てのItemをeventの返すRegistryに登録します。
@@ -22,6 +25,7 @@ public final class RavenItems {
      */
     public static void register(@Nonnull RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(
+            DEBUGGER,
             MANIPULATOR
         );
     }
