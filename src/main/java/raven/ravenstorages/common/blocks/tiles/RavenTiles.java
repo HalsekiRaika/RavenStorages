@@ -7,7 +7,6 @@ import net.minecraftforge.event.RegistryEvent;
 import raven.ravenstorages.common.blocks.RavenBlocks;
 
 import javax.annotation.Nonnull;
-
 import java.util.function.Supplier;
 
 import static raven.ravenstorages.RavenStorages.MOD_ID;
