@@ -1,4 +1,4 @@
-package raven.ravenstorages.effects.entities.base;
+package raven.ravenstorages.client.effects.entities.base;
 
 import raven.ravenstorages.library.vector.VectorProperty;
 
