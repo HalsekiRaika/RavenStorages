@@ -3,7 +3,6 @@ package raven.ravenstorages;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -47,14 +46,14 @@ public class RavenStorages {
         modEventBus.addListener(this::commonSetup);
 
         IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
-        forgeEventBus.addGenericListener(ItemStack.class, this::attachCapability);
+        forgeEventBus.addGenericListener(ItemStack.class, this::attachItemStackCapability);
     }
     
     private void commonSetup(@Nonnull FMLCommonSetupEvent event) {
         CapabilityDebugHandler.register();
     }
 
-    private void attachCapability(@Nonnull AttachCapabilitiesEvent<ItemStack> event) {
+    private void attachItemStackCapability(@Nonnull AttachCapabilitiesEvent<ItemStack> event) {
         ItemStack stack = event.getObject();
 
         if(!stack.getItem().equals(RavenItems.DEBUGGER))
