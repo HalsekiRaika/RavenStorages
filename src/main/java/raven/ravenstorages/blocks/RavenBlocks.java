@@ -19,6 +19,7 @@ public final class RavenBlocks {
     public static final Block INTERFACE = new InterfaceBlock().setRegistryName(MOD_ID, "interface");
     public static final Block CONTROLLER = new ControllerBlock().setRegistryName(MOD_ID, "controller");
     public static final Block READER = new ReaderBlock().setRegistryName(MOD_ID, "reader");
+    public static final Block ACCESS_POINT = new AccessPointBlock().setRegistryName(MOD_ID, "access_point");
 
     /**
      * 全てのブロックをeventの返すRegistryに登録します
@@ -30,7 +31,8 @@ public final class RavenBlocks {
             DEBUG_ANCHOR,
             INTERFACE,
             CONTROLLER,
-            READER
+            READER,
+            ACCESS_POINT
         );
     }
 }
