@@ -1,7 +1,5 @@
 package raven.ravenstorages.api.network;
 
-import raven.ravenstorages.api.network.query.request.Request;
-
 import javax.annotation.Nonnull;
 
 /**
