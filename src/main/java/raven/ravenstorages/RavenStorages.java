@@ -15,12 +15,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import raven.ravenstorages.common.blocks.RavenBlocks;
-import raven.ravenstorages.common.blocks.tiles.RavenTiles;
-import raven.ravenstorages.common.capability.CapabilityDebugHandler;
-import raven.ravenstorages.common.capability.CapabilityDebugHandler.DebugHandler;
-import raven.ravenstorages.common.capability.SingleCapabilityProvider;
-import raven.ravenstorages.common.item.RavenItems;
+import raven.ravenstorages.blocks.RavenBlocks;
+import raven.ravenstorages.blocks.tiles.RavenTiles;
+import raven.ravenstorages.capability.CapabilityDebugHandler;
+import raven.ravenstorages.capability.CapabilityDebugHandler.DebugHandler;
+import raven.ravenstorages.capability.SingleCapabilityProvider;
+import raven.ravenstorages.item.RavenItems;
 
 import javax.annotation.Nonnull;
 
@@ -33,13 +33,6 @@ public class RavenStorages {
 
     public RavenStorages() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        /* 何をしてるか理解できるまでコメントアウト
-        CommonProxy proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
-        proxy.initialization();
-        proxy.attachLifeCycle(eventBus);
-        */
-
         modEventBus.addGenericListener(Block.class, RavenBlocks::register);
         modEventBus.addGenericListener(TileEntityType.class, RavenTiles::register);
         modEventBus.addGenericListener(Item.class, RavenItems::register);
