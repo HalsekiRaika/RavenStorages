@@ -1,7 +1,7 @@
 package raven.ravenstorages.api.network;
 
-import raven.ravenstorages.api.storage.ResourceIdentifier;
-import raven.ravenstorages.api.storage.ResourceStack;
+import raven.ravenstorages.api.resource.ResourceIdentifier;
+import raven.ravenstorages.api.resource.ResourceStack;
 
 import javax.annotation.Nonnull;
 import java.util.List;

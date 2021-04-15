@@ -1,4 +1,4 @@
-package raven.ravenstorages.api.storage;
+package raven.ravenstorages.api.resource;
 
 /**
  * 資源の種類の識別子を表すインターフェースです。
