@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 import static raven.ravenstorages.RavenStorages.MOD_ID;
 
 @Mod(MOD_ID)
-public class RavenStorages {
+public final class RavenStorages {
     public static final String MOD_ID = "raven_storages";
     public static final Logger LOGGER = LogManager.getLogger();
 
