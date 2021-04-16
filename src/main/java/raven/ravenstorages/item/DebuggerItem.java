@@ -11,7 +11,7 @@ import raven.ravenstorages.itemgroup.RavenItemGroups;
 
 import javax.annotation.Nonnull;
 
-public final class DebuggerItem extends Item {
+final class DebuggerItem extends Item {
     DebuggerItem() {
         super(new Properties().group(RavenItemGroups.RAVEN_MAIN));
     }

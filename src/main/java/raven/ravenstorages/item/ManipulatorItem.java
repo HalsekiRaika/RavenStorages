@@ -14,7 +14,7 @@ import raven.ravenstorages.itemgroup.RavenItemGroups;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
-public class ManipulatorItem extends Item {
+final class ManipulatorItem extends Item {
     ManipulatorItem() {
         super(new Properties().group(RavenItemGroups.RAVEN_MAIN));
     }

@@ -9,7 +9,7 @@ import raven.ravenstorages.tiles.RavenTiles;
 
 import javax.annotation.Nullable;
 
-public final class AccessPointBlock extends Block {
+final class AccessPointBlock extends Block {
     AccessPointBlock() {
         super(Properties.create(Material.IRON)
             .doesNotBlockMovement()
