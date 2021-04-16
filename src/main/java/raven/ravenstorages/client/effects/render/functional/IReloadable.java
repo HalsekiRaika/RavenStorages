@@ -1,6 +1,6 @@
-package raven.ravenstorages.effects.render.functional;
+package raven.ravenstorages.client.effects.render.functional;
 
-import raven.ravenstorages.effects.entities.base.BaseFXEntity;
+import raven.ravenstorages.client.effects.entities.base.BaseFXEntity;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
