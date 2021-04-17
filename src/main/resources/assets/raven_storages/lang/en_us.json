@@ -3,5 +3,7 @@
 
     "item.raven_storages.manipulator": "Rod of Manipulation",
 
-    "block.raven_storages.debug_anchor": "Debug Anchor"
+    "block.raven_storages.debug_anchor": "Debug Anchor",
+
+    "raven_storages.container.debug_anchor": "Debug Anchor Inv"
 }

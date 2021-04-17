@@ -23,9 +23,11 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import raven.ravenstorages.blocks.RavenBlocks;
+import raven.ravenstorages.client.screen.DebugAnchorScreen;
 import raven.ravenstorages.containers.DebugContainer;
 import raven.ravenstorages.containers.DebugContainerScreen;
 import raven.ravenstorages.containers.RavenContainers;
+import raven.ravenstorages.containers.RavenDefContainers;
 import raven.ravenstorages.tiles.RavenTiles;
 import raven.ravenstorages.capability.CapabilityDebugHandler;
 import raven.ravenstorages.capability.CapabilityDebugHandler.DebugHandler;
@@ -36,6 +38,7 @@ import javax.annotation.Nonnull;
 
 import static raven.ravenstorages.RavenStorages.MOD_ID;
 import static raven.ravenstorages.containers.RavenContainers.DEBUG_CONTAINER;
+import static raven.ravenstorages.containers.RavenDefContainers.DEBUG_ANCHOR_CONTAINER;
 
 @Mod(MOD_ID)
 public final class RavenStorages {
@@ -48,6 +51,10 @@ public final class RavenStorages {
         modEventBus.addGenericListener(TileEntityType.class, RavenTiles::register);
         modEventBus.addGenericListener(Item.class, RavenItems::register);
         modEventBus.addGenericListener(ContainerType.class, RavenContainers::register);
+
+        //Deferred
+        RavenDefContainers.onRegistration(modEventBus);
+
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
 
@@ -61,6 +68,8 @@ public final class RavenStorages {
 
     private void clientSetup(@Nonnull FMLClientSetupEvent event) {
         ScreenManager.registerFactory(DEBUG_CONTAINER, DebugContainerScreen::new);
+
+        ScreenManager.registerFactory(DEBUG_ANCHOR_CONTAINER.get(), DebugAnchorScreen::new);
     }
 
     private void attachItemStackCapability(@Nonnull AttachCapabilitiesEvent<ItemStack> event) {
