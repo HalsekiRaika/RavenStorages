@@ -1,4 +1,4 @@
-package raven.ravenstorages.containers;
+package raven.ravenstorages.client.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import raven.ravenstorages.containers.DebugContainer;
 
 import javax.annotation.Nonnull;
 
