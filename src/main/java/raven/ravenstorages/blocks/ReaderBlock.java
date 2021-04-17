@@ -12,7 +12,7 @@ import raven.ravenstorages.library.functional.block.IWrenchRetrievable;
 import javax.annotation.Nullable;
 
 //TODO ブロックの正式名称の決定
-public final class ReaderBlock extends Block implements IWrenchRetrievable, IHasBlockItem {
+final class ReaderBlock extends Block implements IWrenchRetrievable, IHasBlockItem {
     ReaderBlock() {
         super(Properties.create(Material.IRON)
                 .doesNotBlockMovement()

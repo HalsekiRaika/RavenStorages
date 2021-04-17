@@ -10,7 +10,7 @@ import raven.ravenstorages.tiles.RavenTiles;
 import javax.annotation.Nullable;
 
 //TODO ブロックの正式名称の決定
-public final class InterfaceBlock extends Block {
+final class InterfaceBlock extends Block {
     InterfaceBlock() {
         super(Properties.create(Material.IRON));
     }

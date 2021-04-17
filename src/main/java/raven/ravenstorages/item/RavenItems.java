@@ -1,7 +1,10 @@
 package raven.ravenstorages.item;
 
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
+import raven.ravenstorages.blocks.RavenBlocks;
+import raven.ravenstorages.itemgroup.RavenItemGroups;
 
 import javax.annotation.Nonnull;
 
@@ -17,6 +20,8 @@ public final class RavenItems {
 
     public static final Item DEBUGGER = new DebuggerItem().setRegistryName(MOD_ID, "debugger");
     public static final Item MANIPULATOR = new ManipulatorItem().setRegistryName(MOD_ID, "manipulator");
+    public static final Item DEBUG_CONTAINER = new BlockItem(RavenBlocks.DEBUG_CONTAINER, new Item.Properties().group(RavenItemGroups.RAVEN_MAIN))
+        .setRegistryName(MOD_ID, "debug_container");
 
     /**
      * 全てのItemをeventの返すRegistryに登録します。
@@ -26,7 +31,8 @@ public final class RavenItems {
     public static void register(@Nonnull RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(
             DEBUGGER,
-            MANIPULATOR
+            MANIPULATOR,
+            DEBUG_CONTAINER
         );
     }
 }

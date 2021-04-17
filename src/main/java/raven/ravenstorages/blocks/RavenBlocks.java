@@ -16,6 +16,7 @@ public final class RavenBlocks {
     }
 
     public static final Block DEBUG_ANCHOR = new DebugAnchorBlock().setRegistryName(MOD_ID, "debug_anchor");
+    public static final Block DEBUG_CONTAINER = new DebugContainerBlock().setRegistryName(MOD_ID, "debug_container");
     public static final Block INTERFACE = new InterfaceBlock().setRegistryName(MOD_ID, "interface");
     public static final Block CONTROLLER = new ControllerBlock().setRegistryName(MOD_ID, "controller");
     public static final Block READER = new ReaderBlock().setRegistryName(MOD_ID, "reader");
@@ -29,6 +30,7 @@ public final class RavenBlocks {
     public static void register(@Nonnull RegistryEvent.Register<Block> event) {
         event.getRegistry().registerAll(
             DEBUG_ANCHOR,
+            DEBUG_CONTAINER,
             INTERFACE,
             CONTROLLER,
             READER,
