@@ -50,6 +50,6 @@ final class DebugContainerBlock extends Block implements INamedContainerProvider
     @Nonnull
     @Override
     public Container createMenu(int windowID, @Nonnull PlayerInventory playerInventory, @Nonnull PlayerEntity playerEntity) {
-        return DebugContainer.createServerSide(windowID);
+        return DebugContainer.createServerSide(windowID, playerInventory);
     }
 }
