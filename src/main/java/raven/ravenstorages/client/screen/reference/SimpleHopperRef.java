@@ -4,7 +4,7 @@ import net.minecraft.util.ResourceLocation;
 
 import static raven.ravenstorages.RavenStorages.MOD_ID;
 
-public final class SimpleHopper {
+public final class SimpleHopperRef {
     /** 透過部分も含んだテクスチャ全体のサイズ */
     public static final int TextureFullSizeX = 256;
     public static final int TextureFullSizeY = 256;
