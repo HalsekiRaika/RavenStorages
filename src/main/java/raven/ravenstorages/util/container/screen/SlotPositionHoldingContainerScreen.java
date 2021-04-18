@@ -25,7 +25,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 
 public abstract class SlotPositionHoldingContainerScreen<T extends Container> extends ContainerScreen<T> {
     private final Map<Slot, IntPoint2d> positionMapping;
@@ -58,15 +57,17 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
     private boolean doubleClick;
     private ItemStack shiftClickedSlot = ItemStack.EMPTY;
 
-    protected SlotPositionHoldingContainerScreen(T screenContainer, PlayerInventory inv, ITextComponent titleIn, Function<? super T, ? extends Map<Slot, IntPoint2d>> positionCalculator) {
+    protected SlotPositionHoldingContainerScreen(T screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
-        positionMapping = positionCalculator.apply(screenContainer);
+        positionMapping = calculateSlotPosition();
         this.ignoreMouseUp = true;
         this.titleX = 8;
         this.titleY = 6;
         this.playerInventoryTitleX = 8;
         this.playerInventoryTitleY = this.ySize - 94;
     }
+
+    protected abstract Map<Slot, IntPoint2d> calculateSlotPosition();
 
     @Override
     protected void init() {
@@ -687,7 +688,7 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
     @Override
     public void closeScreen() {
         this.minecraft.player.closeScreen();
-        super.closeScreen();
+        this.minecraft.displayGuiScreen(null);
     }
 
     /**
