@@ -43,7 +43,7 @@ public class DebugAnchorScreen extends ContainerScreen<DebugAnchorContainer> imp
     @Override
     protected void drawGuiContainerBackgroundLayer(@Nonnull MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.blendColor(1.0f, 1.0f,  1.0f, 1.0f);
-        this.minecraft.getTextureManager().bindTexture(rLocation);
+        this.getMinecraft().getTextureManager().bindTexture(rLocation);
 
         int x = (this.width - this.xSize) / 2;
         int y = (this.height - this.ySize) / 2;

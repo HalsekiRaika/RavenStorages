@@ -16,11 +16,14 @@ public final class RavenTiles {
         throw new AssertionError();
     }
 
-    public static final TileEntityType<DebugAnchorTile> DEBUG_ANCHOR = create(DebugAnchorTile::new, "debug_anchor", RavenBlocks.DEBUG_ANCHOR);
     public static final TileEntityType<InterfaceTile> INTERFACE = create(InterfaceTile::new, "interface", RavenBlocks.INTERFACE);
     public static final TileEntityType<ControllerTile> CONTROLLER = create(ControllerTile::new, "controller", RavenBlocks.CONTROLLER);
     public static final TileEntityType<ReaderTile> READER = create(ReaderTile::new, "reader", RavenBlocks.READER);
     public static final TileEntityType<AccessPointTile> ACCESS_POINT = create(AccessPointTile::new, "access_point", RavenBlocks.ACCESS_POINT);
+
+    // Use for Debug
+    public static final TileEntityType<DebugAnchorTile> DEBUG_ANCHOR = create(DebugAnchorTile::new, "debug_anchor", RavenBlocks.DEBUG_ANCHOR);
+    public static final TileEntityType<DebugContainerTile> DEBUG_CONTAINER = create(DebugContainerTile::new, "debug_container", RavenBlocks.DEBUG_CONTAINER);
 
     public static void register(@Nonnull RegistryEvent.Register<TileEntityType<?>> register) {
         register.getRegistry().registerAll(

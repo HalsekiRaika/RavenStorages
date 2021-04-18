@@ -14,6 +14,9 @@ public class RavenDefContainers {
     public static final RegistryObject<ContainerType<DebugAnchorContainer>> DEBUG_ANCHOR_CONTAINER
             = CONTAINER.register("debug_anchor", () -> new ContainerType<>(DebugAnchorContainer::create));
 
+    public static final RegistryObject<ContainerType<DebugContainer>> DEBUG_CONTAINER
+            = CONTAINER.register("debug_container",() -> new ContainerType<>(DebugContainer::create));
+
     public static void onRegistration(IEventBus eventBus) {
         CONTAINER.register(eventBus);
     }

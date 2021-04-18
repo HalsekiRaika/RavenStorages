@@ -32,8 +32,7 @@ import raven.ravenstorages.item.RavenItems;
 import javax.annotation.Nonnull;
 
 import static raven.ravenstorages.RavenStorages.MOD_ID;
-import static raven.ravenstorages.containers.RavenContainers.DEBUG_CONTAINER;
-import static raven.ravenstorages.containers.RavenDefContainers.DEBUG_ANCHOR_CONTAINER;
+import static raven.ravenstorages.containers.RavenDefContainers.*;
 
 @Mod(MOD_ID)
 public final class RavenStorages {
@@ -62,7 +61,7 @@ public final class RavenStorages {
     }
 
     private void clientSetup(@Nonnull FMLClientSetupEvent event) {
-        ScreenManager.registerFactory(DEBUG_CONTAINER, DebugContainerScreen::new);
+        ScreenManager.registerFactory(DEBUG_CONTAINER.get(), DebugContainerScreen::new);
 
         ScreenManager.registerFactory(DEBUG_ANCHOR_CONTAINER.get(), DebugAnchorScreen::new);
     }
