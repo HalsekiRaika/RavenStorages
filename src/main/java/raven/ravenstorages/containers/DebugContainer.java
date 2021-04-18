@@ -2,94 +2,132 @@ package raven.ravenstorages.containers;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.wrapper.PlayerInvWrapper;
-import raven.ravenstorages.client.screen.reference.SimpleHopperRef;
+import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
+import raven.ravenstorages.RavenStorages;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Collections.unmodifiableList;
 
 public final class DebugContainer extends Container {
     public static DebugContainer createServerSide(int windowId, PlayerInventory playerInventory) {
-        return create(windowId, playerInventory);
+        return new DebugContainer(windowId, playerInventory);
     }
 
     public static DebugContainer createClientSide(int windowId, PlayerInventory playerInventory, PacketBuffer extraData) {
-        return create(windowId, playerInventory);
+        return new DebugContainer(windowId, playerInventory);
     }
 
-    public static DebugContainer create(int windowId, PlayerInventory pInv) {
-        return new DebugContainer(windowId, new Inventory(2), pInv);
-    }
+    private static final int HOTBAR_SLOT_COUNT = 9;
+    private static final int PLAYER_INVENTORY_SLOT_COUNT = 27;
+    private static final int MAIN_SLOT_COUNT = 2;
+    private static final int INPUT_SLOT_NUMBER = 0;
+    private static final int OUTPUT_SLOT_NUMBER = 1;
 
-    public static DebugContainer create(int windowId, IInventory inv, PlayerInventory pInv) {
-        return new DebugContainer(windowId, inv, pInv);
-    }
+    private final IItemHandler mainItemHandler;
+    private final PlayerMainInvWrapper playerInventoryItemHandler;
 
-    private static final int HOTBAR_SLOT_SIZE = 9;
-    private static final int PLAYER_INVENTORY_SLOT_ROW_COUNT = 3;
-    private static final int PLAYER_INVENTORY_SLOT_COLUMN_COUNT = 9;
-    private static final int INPUT_SLOT_SIZE = 1;
-    private static final int OUTPUT_SLOT_SIZE = 1;
-    private static final int INPUT_SLOT_INDEX = 0;
-    private static final int OUTPUT_SLOT_INDEX = 1;
+    private final List<SlotItemHandler> hotbarSlots;
+    private final List<SlotItemHandler> playerInventorySlots;
+    private final SlotItemHandler inputSlot;
+    private final SlotItemHandler outputSlot;
 
 
-    private DebugContainer(int windowId, IInventory inv, PlayerInventory playerInventory) {
-        super(RavenDefContainers.DEBUG_CONTAINER.get(), windowId);
+    private DebugContainer(int windowId, PlayerInventory playerInventory) {
+        super(RavenContainers.DEBUG_CONTAINER, windowId);
+        mainItemHandler = new ItemStackHandler(MAIN_SLOT_COUNT);
+        playerInventoryItemHandler = new PlayerMainInvWrapper(playerInventory);
 
-        assertInventorySize(inv, 2);
+        hotbarSlots = new ArrayList<>();
+        playerInventorySlots = new ArrayList<>();
 
-        /*
-        PlayerInvWrapper playerInventoryItemHandler = new PlayerInvWrapper(playerInventory);
-
-        final int SLOT_X_SPACING = 18;
-        final int SLOT_Y_SPACING = 18;
-        final int HOTBAR_XPOS = 8;
-        final int HOTBAR_YPOS = 142;
-        final int PLAYER_INVENTORY_XPOS = 8;
-        final int PLAYER_INVENTORY_YPOS = 84;
-
-        int slotNumber = 0;
-
-        for (int i=0; i<HOTBAR_SLOT_SIZE; i++)
-            this.addSlot(new SlotItemHandler(playerInventoryItemHandler, slotNumber++, HOTBAR_XPOS + SLOT_X_SPACING * i, HOTBAR_YPOS));
-
-        for (int y=0; y<PLAYER_INVENTORY_SLOT_ROW_COUNT; y++) {
-            for (int x = 0; x < PLAYER_INVENTORY_SLOT_COLUMN_COUNT; x++) {
-                this.addSlot(new SlotItemHandler(
-                    playerInventoryItemHandler,
-                    slotNumber++,
-                    PLAYER_INVENTORY_XPOS + SLOT_X_SPACING*x,
-                    PLAYER_INVENTORY_YPOS + SLOT_Y_SPACING*y
-                ));
-            }
-        }
-        */
-
-        this.addSlot(new Slot(inv, INPUT_SLOT_INDEX,  SimpleHopperRef.LeftSlotPosX,  SimpleHopperRef.LeftSlotPosY));
-        this.addSlot(new Slot(inv, OUTPUT_SLOT_INDEX, SimpleHopperRef.RightSlotPosX, SimpleHopperRef.RightSlotPosY));
-
-        int leftCol = (SimpleHopperRef.TextureUISizeX - 162) / 2 + 1;
-
-        for (int playerInvRow = 0; playerInvRow < 3; playerInvRow++) {
-            for (int playerInvCol = 0; playerInvCol < 9; playerInvCol++) {
-                this.addSlot(new Slot(playerInventory, playerInvCol + playerInvRow * 9 + 9, leftCol + playerInvCol * 18, SimpleHopperRef.TextureUISizeY - (4 - playerInvRow) * 18 - 10));
-            }
-
+        for (int slotNumber = 0; slotNumber< HOTBAR_SLOT_COUNT; slotNumber++) {
+            SlotItemHandler slot = newSlot(playerInventoryItemHandler, slotNumber);
+            this.addSlot(slot);
+            hotbarSlots.add(slot);
         }
 
-        for (int hotbarSlot = 0; hotbarSlot < 9; hotbarSlot++) {
-            this.addSlot(new Slot(playerInventory, hotbarSlot, leftCol + hotbarSlot * 18, SimpleHopperRef.TextureUISizeY - 24));
+        for (int i = 0; i<PLAYER_INVENTORY_SLOT_COUNT; i++) {
+            int slotNumber = HOTBAR_SLOT_COUNT + i;
+            SlotItemHandler slot = newSlot(playerInventoryItemHandler, slotNumber);
+            this.addSlot(slot);
+            playerInventorySlots.add(slot);
         }
+
+        SlotItemHandler inputSlot = newSlot(mainItemHandler, INPUT_SLOT_NUMBER);
+        this.addSlot(inputSlot);
+        this.inputSlot = inputSlot;
+
+        SlotItemHandler outputSlot = newSlot(mainItemHandler, OUTPUT_SLOT_NUMBER);
+        this.addSlot(outputSlot);
+        this.outputSlot = outputSlot;
     }
 
     @Override
     public boolean canInteractWith(@Nonnull PlayerEntity playerIn) {
         return true;
+    }
+
+    @Override
+    @Nonnull
+    public ItemStack transferStackInSlot(@Nonnull PlayerEntity playerIn, int index) {
+        RavenStorages.LOGGER.debug("transferStackInSlot");
+        Slot sourceSlot = inventorySlots.get(index);
+        if(sourceSlot == null || !sourceSlot.getHasStack()) return ItemStack.EMPTY;
+
+        ItemStack sourceStack = sourceSlot.getStack();
+        ItemStack copy = sourceStack.copy();
+
+        if(isPlayerInventory(index))
+            if(!mergeItemStack(sourceStack, 36, 37, false)) return ItemStack.EMPTY;
+
+        if(isHopperSlot(index)) if(!mergeItemStack(sourceStack, 0, 35, false))
+            return ItemStack.EMPTY;
+
+        if(sourceStack.getCount() == 0) {
+            sourceSlot.putStack(ItemStack.EMPTY);
+        } else {
+            sourceSlot.onSlotChanged();
+        }
+
+        sourceSlot.onTake(playerIn, sourceStack);
+        return copy;
+    }
+
+    private boolean isPlayerInventory(int index) {
+        return 0 <= index && index <= 35;
+    }
+
+    private boolean isHopperSlot(int index) {
+        return index == 36 || index == 37;
+    }
+
+    public List<SlotItemHandler> hotbarSlots() {
+        return unmodifiableList(hotbarSlots);
+    }
+
+    public List<SlotItemHandler> playerInventorySlots() {
+        return unmodifiableList(playerInventorySlots);
+    }
+
+    public SlotItemHandler inputSlot() {
+        return inputSlot;
+    }
+
+    public SlotItemHandler getOutputSlot() {
+        return outputSlot;
+    }
+
+    private static SlotItemHandler newSlot(IItemHandler itemHandler, int index) {
+        return new SlotItemHandler(itemHandler, index, 0, 0);
     }
 }

@@ -1,6 +1,8 @@
 package raven.ravenstorages.blocks;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraftforge.event.RegistryEvent;
 
 import javax.annotation.Nonnull;

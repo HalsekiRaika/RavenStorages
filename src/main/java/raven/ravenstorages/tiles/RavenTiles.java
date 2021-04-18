@@ -23,7 +23,6 @@ public final class RavenTiles {
 
     // Use for Debug
     public static final TileEntityType<DebugAnchorTile> DEBUG_ANCHOR = create(DebugAnchorTile::new, "debug_anchor", RavenBlocks.DEBUG_ANCHOR);
-    public static final TileEntityType<DebugContainerTile> DEBUG_CONTAINER = create(DebugContainerTile::new, "debug_container", RavenBlocks.DEBUG_CONTAINER);
 
     public static void register(@Nonnull RegistryEvent.Register<TileEntityType<?>> register) {
         register.getRegistry().registerAll(
