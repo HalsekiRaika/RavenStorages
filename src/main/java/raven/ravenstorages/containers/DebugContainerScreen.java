@@ -2,20 +2,52 @@ package raven.ravenstorages.containers;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.items.SlotItemHandler;
+import raven.ravenstorages.util.container.screen.SlotPositionHoldingContainerScreen;
+import raven.ravenstorages.util.geometry.IntPoint2d;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static raven.ravenstorages.RavenStorages.MOD_ID;
 
-public class DebugContainerScreen extends ContainerScreen<DebugContainer> {
+public class DebugContainerScreen extends SlotPositionHoldingContainerScreen<DebugContainer> {
     public DebugContainerScreen(DebugContainer screenContainer, PlayerInventory playerInventory, ITextComponent title) {
-        super(screenContainer, playerInventory, title);
-        xSize = 176;
-        ySize = 166;
+        super(screenContainer, playerInventory, title, container -> {
+            final int SLOT_X_SPACING = 18;
+            final int SLOT_Y_SPACING = 18;
+            final int HOTBAR_XPOS = 8;
+            final int HOTBAR_YPOS = 142;
+            final int PLAYER_INVENTORY_XPOS = 8;
+            final int PLAYER_INVENTORY_YPOS = 84;
+
+            Map<Slot, IntPoint2d> mapping = new HashMap<>();
+
+            List<SlotItemHandler> hotbarSlots = container.hotbarSlots();
+            for(int i=0; i<hotbarSlots.size(); i++) {
+                SlotItemHandler slot = hotbarSlots.get(i);
+                mapping.put(slot, new IntPoint2d(HOTBAR_XPOS + i*SLOT_X_SPACING, HOTBAR_YPOS));
+            }
+
+            List<SlotItemHandler> playerInventorySlots = container.playerInventorySlots();
+            for (int y=0; y<3; y++) {
+                for(int x=0; x<9; x++) {
+                    SlotItemHandler slot = playerInventorySlots.get(x+y*9);
+                    mapping.put(slot, new IntPoint2d(PLAYER_INVENTORY_XPOS + x*SLOT_X_SPACING, PLAYER_INVENTORY_YPOS + y*SLOT_Y_SPACING));
+                }
+            }
+
+            SlotItemHandler inputSlot = container.inputSlot();
+
+            SlotItemHandler outputSlot = container.getOutputSlot();
+            return mapping;
+        });
     }
 
     @Override
