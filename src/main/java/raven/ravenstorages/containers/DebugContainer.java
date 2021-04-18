@@ -63,8 +63,13 @@ public final class DebugContainer extends Container {
             playerInventorySlots.add(slot);
         }
 
-        inputSlot = newSlot(mainItemHandler, INPUT_SLOT_NUMBER);
-        outputSlot = newSlot(mainItemHandler, OUTPUT_SLOT_NUMBER);
+        SlotItemHandler inputSlot = newSlot(mainItemHandler, INPUT_SLOT_NUMBER);
+        this.addSlot(inputSlot);
+        this.inputSlot = inputSlot;
+
+        SlotItemHandler outputSlot = newSlot(mainItemHandler, OUTPUT_SLOT_NUMBER);
+        this.addSlot(outputSlot);
+        this.outputSlot = outputSlot;
     }
 
     @Override
@@ -73,9 +78,37 @@ public final class DebugContainer extends Container {
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    @Nonnull
+    public ItemStack transferStackInSlot(@Nonnull PlayerEntity playerIn, int index) {
         RavenStorages.LOGGER.debug("transferStackInSlot");
-        return ItemStack.EMPTY;
+        Slot sourceSlot = inventorySlots.get(index);
+        if(sourceSlot == null || !sourceSlot.getHasStack()) return ItemStack.EMPTY;
+
+        ItemStack sourceStack = sourceSlot.getStack();
+        ItemStack copy = sourceStack.copy();
+
+        if(isPlayerInventory(index))
+            if(!mergeItemStack(sourceStack, 36, 37, false)) return ItemStack.EMPTY;
+
+        if(isHopperSlot(index)) if(!mergeItemStack(sourceStack, 0, 35, false))
+            return ItemStack.EMPTY;
+
+        if(sourceStack.getCount() == 0) {
+            sourceSlot.putStack(ItemStack.EMPTY);
+        } else {
+            sourceSlot.onSlotChanged();
+        }
+
+        sourceSlot.onTake(playerIn, sourceStack);
+        return copy;
+    }
+
+    private boolean isPlayerInventory(int index) {
+        return 0 <= index && index <= 35;
+    }
+
+    private boolean isHopperSlot(int index) {
+        return index == 36 || index == 37;
     }
 
     public List<SlotItemHandler> hotbarSlots() {

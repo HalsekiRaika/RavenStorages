@@ -19,35 +19,41 @@ import static raven.ravenstorages.RavenStorages.MOD_ID;
 
 public class DebugContainerScreen extends SlotPositionHoldingContainerScreen<DebugContainer> {
     public DebugContainerScreen(DebugContainer screenContainer, PlayerInventory playerInventory, ITextComponent title) {
-        super(screenContainer, playerInventory, title, container -> {
-            final int SLOT_X_SPACING = 18;
-            final int SLOT_Y_SPACING = 18;
-            final int HOTBAR_XPOS = 8;
-            final int HOTBAR_YPOS = 142;
-            final int PLAYER_INVENTORY_XPOS = 8;
-            final int PLAYER_INVENTORY_YPOS = 84;
+        super(screenContainer, playerInventory, title);
+    }
 
-            Map<Slot, IntPoint2d> mapping = new HashMap<>();
+    @Override
+    protected Map<Slot, IntPoint2d> calculateSlotPosition() {
+        final int SLOT_X_SPACING = 18;
+        final int SLOT_Y_SPACING = 18;
+        final int HOTBAR_XPOS = 8;
+        final int HOTBAR_YPOS = 142;
+        final int PLAYER_INVENTORY_XPOS = 8;
+        final int PLAYER_INVENTORY_YPOS = 84;
 
-            List<SlotItemHandler> hotbarSlots = container.hotbarSlots();
-            for(int i=0; i<hotbarSlots.size(); i++) {
-                SlotItemHandler slot = hotbarSlots.get(i);
-                mapping.put(slot, new IntPoint2d(HOTBAR_XPOS + i*SLOT_X_SPACING, HOTBAR_YPOS));
+        Map<Slot, IntPoint2d> mapping = new HashMap<>();
+
+        List<SlotItemHandler> hotbarSlots = container.hotbarSlots();
+        for(int i=0; i<hotbarSlots.size(); i++) {
+            SlotItemHandler slot = hotbarSlots.get(i);
+            mapping.put(slot, new IntPoint2d(HOTBAR_XPOS + i*SLOT_X_SPACING, HOTBAR_YPOS));
+        }
+
+        List<SlotItemHandler> playerInventorySlots = container.playerInventorySlots();
+        for (int y=0; y<3; y++) {
+            for(int x=0; x<9; x++) {
+                SlotItemHandler slot = playerInventorySlots.get(x+y*9);
+                mapping.put(slot, new IntPoint2d(PLAYER_INVENTORY_XPOS + x*SLOT_X_SPACING, PLAYER_INVENTORY_YPOS + y*SLOT_Y_SPACING));
             }
+        }
 
-            List<SlotItemHandler> playerInventorySlots = container.playerInventorySlots();
-            for (int y=0; y<3; y++) {
-                for(int x=0; x<9; x++) {
-                    SlotItemHandler slot = playerInventorySlots.get(x+y*9);
-                    mapping.put(slot, new IntPoint2d(PLAYER_INVENTORY_XPOS + x*SLOT_X_SPACING, PLAYER_INVENTORY_YPOS + y*SLOT_Y_SPACING));
-                }
-            }
+        SlotItemHandler inputSlot = container.inputSlot();
+        mapping.put(inputSlot, new IntPoint2d(62, 34));
 
-            SlotItemHandler inputSlot = container.inputSlot();
+        SlotItemHandler outputSlot = container.getOutputSlot();
+        mapping.put(outputSlot, new IntPoint2d(98, 34));
 
-            SlotItemHandler outputSlot = container.getOutputSlot();
-            return mapping;
-        });
+        return mapping;
     }
 
     @Override
@@ -59,6 +65,7 @@ public class DebugContainerScreen extends SlotPositionHoldingContainerScreen<Deb
 
     @Override
     protected void drawGuiContainerBackgroundLayer(@Nonnull MatrixStack matrixStack, float partialTicks, int x, int y) {
+        //noinspection deprecation
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.getMinecraft().getTextureManager().bindTexture(BACKGROUND_TEXTURE);
         int edgeSpacingX = (this.width - this.xSize) / 2;
