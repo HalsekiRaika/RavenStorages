@@ -20,7 +20,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import raven.ravenstorages.blocks.RavenBlocks;
 import raven.ravenstorages.client.screen.DebugAnchorScreen;
-import raven.ravenstorages.client.screen.DebugContainerScreen;
+import raven.ravenstorages.containers.DebugContainerScreen;
 import raven.ravenstorages.containers.RavenContainers;
 import raven.ravenstorages.containers.RavenDefContainers;
 import raven.ravenstorages.tiles.RavenTiles;
@@ -32,6 +32,7 @@ import raven.ravenstorages.item.RavenItems;
 import javax.annotation.Nonnull;
 
 import static raven.ravenstorages.RavenStorages.MOD_ID;
+import static raven.ravenstorages.containers.RavenContainers.DEBUG_CONTAINER;
 import static raven.ravenstorages.containers.RavenDefContainers.*;
 
 @Mod(MOD_ID)
@@ -61,7 +62,7 @@ public final class RavenStorages {
     }
 
     private void clientSetup(@Nonnull FMLClientSetupEvent event) {
-        ScreenManager.registerFactory(DEBUG_CONTAINER.get(), DebugContainerScreen::new);
+        ScreenManager.registerFactory(DEBUG_CONTAINER, DebugContainerScreen::new);
 
         ScreenManager.registerFactory(DEBUG_ANCHOR_CONTAINER.get(), DebugAnchorScreen::new);
     }
