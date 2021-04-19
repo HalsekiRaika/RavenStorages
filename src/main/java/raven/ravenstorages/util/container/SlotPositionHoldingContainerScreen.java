@@ -1,4 +1,4 @@
-package raven.ravenstorages.util.container.screen;
+package raven.ravenstorages.util.container;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings({"ConstantConditions", "NullableProblems", "UnusedReturnValue", "deprecation"})
-public abstract class SlotPositionHoldingContainerScreen<T extends Container> extends ContainerScreen<T> {
+public abstract class SlotPositionHoldingContainerScreen<T extends SlotPositionLessContainer> extends ContainerScreen<T> {
     private final Map<Slot, IntPoint2d> positionMapping;
 
     @Nullable
@@ -57,17 +57,15 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
     private boolean doubleClick;
     private ItemStack shiftClickedSlot = ItemStack.EMPTY;
 
-    protected SlotPositionHoldingContainerScreen(T screenContainer, PlayerInventory inv, ITextComponent titleIn) {
-        super(screenContainer, inv, titleIn);
-        positionMapping = calculateSlotPosition();
+    protected SlotPositionHoldingContainerScreen(@Nonnull T container, @Nonnull PlayerInventory playerInventory, @Nonnull ITextComponent title) {
+        super(container, playerInventory, title);
+        positionMapping = calculateSlotPosition(container);
         this.ignoreMouseUp = true;
         this.titleX = 8;
         this.titleY = 6;
         this.playerInventoryTitleX = 8;
         this.playerInventoryTitleY = this.ySize - 94;
     }
-
-    protected abstract Map<Slot, IntPoint2d> calculateSlotPosition();
 
     @Override
     protected void init() {
@@ -691,13 +689,27 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
     }
 
     /**
-     * 指定したスロットがコンテナに存在する場合、その座標を返します。
+     * 指定したスロットが存在する場合、そのスロットが描画されるべき座標を返します。
      *
-     * @param slot スロット
+     * @param slot 座標を検索するスロット
      * @return スロットの座標のOptional
      */
     @Nonnull
     protected final Optional<IntPoint2d> getPosition(@Nullable Slot slot) {
         return Optional.ofNullable(positionMapping.get(slot));
     }
+
+    /**
+     * 指定されたコンテナの各スロットが描画される座標を計算します。
+     *
+     * <p>このメソッドはコンストラクタの中で一度だけ呼ばれます。引数はコンストラクタに渡されたcontainerです。
+     * <p>実装者はcontainerの管理する全てのSlotに対してそれが描画される座標を計算する必要があります。
+     * 戻り値は決して書き換えられないため、不変化や同期化は不要です。
+     * このメソッドの呼び出し時点ではコンストラクタが完了していないため、this参照を決して外部に逸脱させないでください。
+     *
+     * @param container コンストラクタに渡されたコンテナ
+     * @return スロットとその描画位置のマッピング
+     */
+    @Nonnull
+    protected abstract Map<Slot, IntPoint2d> calculateSlotPosition(@Nonnull T container);
 }
