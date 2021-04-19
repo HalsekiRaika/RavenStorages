@@ -15,9 +15,10 @@ import javax.annotation.Nullable;
  * しかし、SlotPositionHoldingContainerScreenはSlotの保持する座標を無視して独自の座標管理を行います。
  * 従って、サブクラスの実装者及びその利用者はaddSlotメソッドの呼び出しにおいて、Slotの座標が無視される事に留意してください。
  *
- * <p>サブクラスの実装者は、SlotPositionHoldingContainerScreenが各Slotの座標を計算するためにContainerが管理するSlotの取得を簡単にするための
- * メソッドを定義し、ドキュメントを記述することが強く推奨されます。
- * そのようなメソッドを定義しない場合でもinventorySlotsメソッドにより全てのSlotを取得できますが、その場合はindexとSlotの対応を明示的にドキュメント化すべきです。
+ * <p>SlotPositionHoldingContainerScreenのサブクラスの実装者は各Slotの座標を計算するために、このContainerで管理されるスロットを区別しながら取得必要があります。
+ * そのため、このクラスのサブクラスの実装者はContainerが管理するSlotの取得を簡単にするためのメソッドを定義する事が強く推奨されます。
+ * そのようなメソッドを定義しない場合でもinventorySlotsメソッドにより全てのSlotを取得できますが、
+ * その場合はindexとSlotの対応を明示的にドキュメント化すべきです。
  *
  * @see SlotPositionHoldingContainerScreen
  */
