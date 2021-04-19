@@ -34,9 +34,10 @@ final class DebugAnchorBlock extends Block implements IWrenchRetrievable, IHasBl
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return RavenTiles.DEBUG_ANCHOR.create();
+        return RavenTiles.DEBUG_ANCHOR.get().create();
     }
 
+    @SuppressWarnings("deprecation")
     @Nonnull
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
@@ -50,6 +51,7 @@ final class DebugAnchorBlock extends Block implements IWrenchRetrievable, IHasBl
         return ActionResultType.SUCCESS;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     @Nullable
     public INamedContainerProvider getContainer(BlockState state, World world, BlockPos pos) {

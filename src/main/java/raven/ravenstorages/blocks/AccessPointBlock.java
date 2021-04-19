@@ -25,6 +25,6 @@ final class AccessPointBlock extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return RavenTiles.ACCESS_POINT.create();
+        return RavenTiles.ACCESS_POINT.get().create();
     }
 }

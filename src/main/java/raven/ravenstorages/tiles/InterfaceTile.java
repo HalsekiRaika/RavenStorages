@@ -4,6 +4,6 @@ import net.minecraft.tileentity.TileEntity;
 
 final class InterfaceTile extends TileEntity {
     InterfaceTile() {
-        super(RavenTiles.INTERFACE);
+        super(RavenTiles.INTERFACE.get());
     }
 }

@@ -23,6 +23,6 @@ final class InterfaceBlock extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return RavenTiles.INTERFACE.create();
+        return RavenTiles.INTERFACE.get().create();
     }
 }

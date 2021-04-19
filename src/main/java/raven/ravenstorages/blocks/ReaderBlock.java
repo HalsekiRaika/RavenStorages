@@ -28,6 +28,6 @@ final class ReaderBlock extends Block implements IWrenchRetrievable, IHasBlockIt
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return RavenTiles.READER.create();
+        return RavenTiles.READER.get().create();
     }
 }

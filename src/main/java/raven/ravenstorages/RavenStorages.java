@@ -42,9 +42,10 @@ public final class RavenStorages {
 
     public RavenStorages() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modEventBus.addGenericListener(Block.class, RavenBlocks::register);
-        modEventBus.addGenericListener(TileEntityType.class, RavenTiles::register);
-        modEventBus.addGenericListener(Item.class, RavenItems::register);
+        RavenBlocks.register(modEventBus);
+        RavenTiles.register(modEventBus);
+        RavenItems.register(modEventBus);
+
         modEventBus.addGenericListener(ContainerType.class, RavenContainers::register);
 
         //Deferred
@@ -70,7 +71,7 @@ public final class RavenStorages {
     private void attachItemStackCapability(@Nonnull AttachCapabilitiesEvent<ItemStack> event) {
         ItemStack stack = event.getObject();
 
-        if(!stack.getItem().equals(RavenItems.DEBUGGER))
+        if(!stack.getItem().equals(RavenItems.DEBUGGER.get()))
             return;
 
         ResourceLocation name = new ResourceLocation(MOD_ID, "debug_handler");
