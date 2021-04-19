@@ -1,13 +1,12 @@
 package raven.ravenstorages.containers;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.items.SlotItemHandler;
-import raven.ravenstorages.util.container.screen.SlotPositionHoldingContainerScreen;
+import raven.ravenstorages.util.container.SlotPositionHoldingContainerScreen;
 import raven.ravenstorages.util.geometry.IntPoint2d;
 
 import javax.annotation.Nonnull;
@@ -17,13 +16,14 @@ import java.util.Map;
 
 import static raven.ravenstorages.RavenStorages.MOD_ID;
 
-public class DebugContainerScreen extends SlotPositionHoldingContainerScreen<DebugContainer> {
+public final class DebugContainerScreen extends SlotPositionHoldingContainerScreen<DebugContainer> {
     public DebugContainerScreen(DebugContainer screenContainer, PlayerInventory playerInventory, ITextComponent title) {
         super(screenContainer, playerInventory, title);
     }
 
     @Override
-    protected Map<Slot, IntPoint2d> calculateSlotPosition() {
+    @Nonnull
+    protected Map<Slot, IntPoint2d> calculateSlotPosition(@Nonnull DebugContainer container) {
         final int SLOT_X_SPACING = 18;
         final int SLOT_Y_SPACING = 18;
         final int HOTBAR_XPOS = 8;
@@ -65,8 +65,6 @@ public class DebugContainerScreen extends SlotPositionHoldingContainerScreen<Deb
 
     @Override
     protected void drawGuiContainerBackgroundLayer(@Nonnull MatrixStack matrixStack, float partialTicks, int x, int y) {
-        //noinspection deprecation
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.getMinecraft().getTextureManager().bindTexture(BACKGROUND_TEXTURE);
         int edgeSpacingX = (this.width - this.xSize) / 2;
         int edgeSpacingY = (this.height - this.ySize) / 2;

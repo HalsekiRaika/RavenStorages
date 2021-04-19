@@ -2,7 +2,6 @@ package raven.ravenstorages.containers;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
@@ -11,6 +10,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 import raven.ravenstorages.RavenStorages;
+import raven.ravenstorages.util.container.SlotPositionLessContainer;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.List;
 
 import static java.util.Collections.unmodifiableList;
 
-public final class DebugContainer extends Container {
+public final class DebugContainer extends SlotPositionLessContainer {
     public static DebugContainer createServerSide(int windowId, PlayerInventory playerInventory) {
         return new DebugContainer(windowId, playerInventory);
     }

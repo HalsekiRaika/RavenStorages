@@ -1,11 +1,10 @@
-package raven.ravenstorages.util.container.screen;
+package raven.ravenstorages.util.container;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.IGuiEventListener;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.util.InputMappings;
@@ -26,7 +25,8 @@ import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Optional;
 
-public abstract class SlotPositionHoldingContainerScreen<T extends Container> extends ContainerScreen<T> {
+@SuppressWarnings({"ConstantConditions", "NullableProblems", "UnusedReturnValue", "deprecation"})
+public abstract class SlotPositionHoldingContainerScreen<T extends SlotPositionLessContainer> extends ContainerScreen<T> {
     private final Map<Slot, IntPoint2d> positionMapping;
 
     @Nullable
@@ -57,17 +57,15 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
     private boolean doubleClick;
     private ItemStack shiftClickedSlot = ItemStack.EMPTY;
 
-    protected SlotPositionHoldingContainerScreen(T screenContainer, PlayerInventory inv, ITextComponent titleIn) {
-        super(screenContainer, inv, titleIn);
-        positionMapping = calculateSlotPosition();
+    protected SlotPositionHoldingContainerScreen(@Nonnull T container, @Nonnull PlayerInventory playerInventory, @Nonnull ITextComponent title) {
+        super(container, playerInventory, title);
+        positionMapping = calculateSlotPosition(container);
         this.ignoreMouseUp = true;
         this.titleX = 8;
         this.titleY = 6;
         this.playerInventoryTitleX = 8;
         this.playerInventoryTitleY = this.ySize - 94;
     }
-
-    protected abstract Map<Slot, IntPoint2d> calculateSlotPosition();
 
     @Override
     protected void init() {
@@ -83,8 +81,8 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.GuiContainerEvent.DrawBackground(this, matrixStack, mouseX, mouseY));
         RenderSystem.disableRescaleNormal();
         RenderSystem.disableDepthTest();
-        for(int x = 0; x < this.buttons.size(); ++x) {
-            this.buttons.get(x).render(matrixStack, mouseX, mouseY, partialTicks);
+        for (net.minecraft.client.gui.widget.Widget button : this.buttons) {
+            button.render(matrixStack, mouseX, mouseY, partialTicks);
         }
         RenderSystem.pushMatrix();
         RenderSystem.translatef((float)i, (float)j, 0.0F);
@@ -332,7 +330,7 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
                 }
 
                 if (this.minecraft.gameSettings.touchscreen && flag1 && this.minecraft.player.inventory.getItemStack().isEmpty()) {
-                    this.minecraft.displayGuiScreen((Screen)null);
+                    this.minecraft.displayGuiScreen(null);
                     return true;
                 }
 
@@ -443,9 +441,7 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
 
     private boolean superMouseReleased(double mouseX, double mouseY, int button) {
         this.setDragging(false);
-        return this.getEventListenerForPos(mouseX, mouseY).filter((listener) -> {
-            return listener.mouseReleased(mouseX, mouseY, button);
-        }).isPresent();
+        return this.getEventListenerForPos(mouseX, mouseY).filter(listener -> listener.mouseReleased(mouseX, mouseY, button)).isPresent();
     }
 
     @Override
@@ -526,13 +522,13 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
                     this.clickedSlot = null;
                 }
             } else if (this.dragSplitting && !this.dragSplittingSlots.isEmpty()) {
-                this.handleMouseClick((Slot)null, -999, Container.getQuickcraftMask(0, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
+                this.handleMouseClick(null, -999, Container.getQuickcraftMask(0, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
 
                 for(Slot slot1 : this.dragSplittingSlots) {
                     this.handleMouseClick(slot1, slot1.slotNumber, Container.getQuickcraftMask(1, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
                 }
 
-                this.handleMouseClick((Slot)null, -999, Container.getQuickcraftMask(2, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
+                this.handleMouseClick(null, -999, Container.getQuickcraftMask(2, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
             } else if (!this.minecraft.player.inventory.getItemStack().isEmpty()) {
                 if (this.minecraft.gameSettings.keyBindPickBlock.isActiveAndMatches(mouseKey)) {
                     this.handleMouseClick(slot, k, button, ClickType.CLONE);
@@ -603,7 +599,8 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
         InputMappings.Input mouseKey = InputMappings.getInputByCode(keyCode, scanCode);
         if (superKeyPressed(keyCode, scanCode, modifiers)) {
             return true;
-        } else if (this.minecraft.gameSettings.keyBindInventory.isActiveAndMatches(mouseKey)) {
+        } else
+            if (this.minecraft.gameSettings.keyBindInventory.isActiveAndMatches(mouseKey)) {
             this.closeScreen();
             return true;
         } else {
@@ -692,13 +689,27 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
     }
 
     /**
-     * 指定したスロットがコンテナに存在する場合、その座標を返します。
+     * 指定したスロットが存在する場合、そのスロットが描画されるべき座標を返します。
      *
-     * @param slot スロット
+     * @param slot 座標を検索するスロット
      * @return スロットの座標のOptional
      */
     @Nonnull
     protected final Optional<IntPoint2d> getPosition(@Nullable Slot slot) {
         return Optional.ofNullable(positionMapping.get(slot));
     }
+
+    /**
+     * 指定されたコンテナの各スロットが描画される座標を計算します。
+     *
+     * <p>このメソッドはコンストラクタの中で一度だけ呼ばれます。引数はコンストラクタに渡されたcontainerです。
+     * <p>サブクラスの実装者はcontainerの管理する全てのSlotに対してそれが描画される座標を計算する必要があります。
+     * 戻り値は決して書き換えられないため、不変化や同期化は不要です。
+     * このメソッドの呼び出し時点ではコンストラクタが完了していないため、this参照を決して外部に逸脱させないでください。
+     *
+     * @param container コンストラクタに渡されたコンテナ
+     * @return スロットとその描画位置のマッピング
+     */
+    @Nonnull
+    protected abstract Map<Slot, IntPoint2d> calculateSlotPosition(@Nonnull T container);
 }
