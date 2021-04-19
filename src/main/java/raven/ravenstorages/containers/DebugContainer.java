@@ -11,6 +11,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 import raven.ravenstorages.RavenStorages;
+import raven.ravenstorages.util.container.SlotPositionLessContainer;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
 
 import static java.util.Collections.unmodifiableList;
 
-public final class DebugContainer extends Container {
+public final class DebugContainer extends SlotPositionLessContainer {
     public static DebugContainer createServerSide(int windowId, PlayerInventory playerInventory) {
         return new DebugContainer(windowId, playerInventory);
     }
