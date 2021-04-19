@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Optional;
 
+@SuppressWarnings({"ConstantConditions", "NullableProblems", "UnusedReturnValue", "deprecation"})
 public abstract class SlotPositionHoldingContainerScreen<T extends Container> extends ContainerScreen<T> {
     private final Map<Slot, IntPoint2d> positionMapping;
 
@@ -83,8 +84,8 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.GuiContainerEvent.DrawBackground(this, matrixStack, mouseX, mouseY));
         RenderSystem.disableRescaleNormal();
         RenderSystem.disableDepthTest();
-        for(int x = 0; x < this.buttons.size(); ++x) {
-            this.buttons.get(x).render(matrixStack, mouseX, mouseY, partialTicks);
+        for (net.minecraft.client.gui.widget.Widget button : this.buttons) {
+            button.render(matrixStack, mouseX, mouseY, partialTicks);
         }
         RenderSystem.pushMatrix();
         RenderSystem.translatef((float)i, (float)j, 0.0F);
@@ -332,7 +333,7 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
                 }
 
                 if (this.minecraft.gameSettings.touchscreen && flag1 && this.minecraft.player.inventory.getItemStack().isEmpty()) {
-                    this.minecraft.displayGuiScreen((Screen)null);
+                    this.minecraft.displayGuiScreen(null);
                     return true;
                 }
 
@@ -443,9 +444,7 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
 
     private boolean superMouseReleased(double mouseX, double mouseY, int button) {
         this.setDragging(false);
-        return this.getEventListenerForPos(mouseX, mouseY).filter((listener) -> {
-            return listener.mouseReleased(mouseX, mouseY, button);
-        }).isPresent();
+        return this.getEventListenerForPos(mouseX, mouseY).filter(listener -> listener.mouseReleased(mouseX, mouseY, button)).isPresent();
     }
 
     @Override
@@ -526,13 +525,13 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
                     this.clickedSlot = null;
                 }
             } else if (this.dragSplitting && !this.dragSplittingSlots.isEmpty()) {
-                this.handleMouseClick((Slot)null, -999, Container.getQuickcraftMask(0, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
+                this.handleMouseClick(null, -999, Container.getQuickcraftMask(0, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
 
                 for(Slot slot1 : this.dragSplittingSlots) {
                     this.handleMouseClick(slot1, slot1.slotNumber, Container.getQuickcraftMask(1, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
                 }
 
-                this.handleMouseClick((Slot)null, -999, Container.getQuickcraftMask(2, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
+                this.handleMouseClick(null, -999, Container.getQuickcraftMask(2, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
             } else if (!this.minecraft.player.inventory.getItemStack().isEmpty()) {
                 if (this.minecraft.gameSettings.keyBindPickBlock.isActiveAndMatches(mouseKey)) {
                     this.handleMouseClick(slot, k, button, ClickType.CLONE);
@@ -603,7 +602,8 @@ public abstract class SlotPositionHoldingContainerScreen<T extends Container> ex
         InputMappings.Input mouseKey = InputMappings.getInputByCode(keyCode, scanCode);
         if (superKeyPressed(keyCode, scanCode, modifiers)) {
             return true;
-        } else if (this.minecraft.gameSettings.keyBindInventory.isActiveAndMatches(mouseKey)) {
+        } else
+            if (this.minecraft.gameSettings.keyBindInventory.isActiveAndMatches(mouseKey)) {
             this.closeScreen();
             return true;
         } else {
