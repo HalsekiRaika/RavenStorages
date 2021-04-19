@@ -14,7 +14,7 @@ public final class RavenItemGroups {
     public static final ItemGroup RAVEN_MAIN = new ItemGroup(MOD_ID) {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(RavenItems.MANIPULATOR);
+            return new ItemStack(RavenItems.MANIPULATOR.get());
         }
     };
 }

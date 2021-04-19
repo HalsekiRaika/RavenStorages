@@ -28,6 +28,6 @@ final class ControllerBlock extends Block implements IWrenchRetrievable, IHasBlo
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return RavenTiles.CONTROLLER.create();
+        return RavenTiles.CONTROLLER.get().create();
     }
 }

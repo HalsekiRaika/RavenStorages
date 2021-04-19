@@ -24,7 +24,7 @@ final class DebugAnchorTile extends LockableLootTileEntity {
     private NonNullList<ItemStack> contents;
 
     DebugAnchorTile() {
-        super(RavenTiles.DEBUG_ANCHOR);
+        super(RavenTiles.DEBUG_ANCHOR.get());
         this.contents = NonNullList.withSize(9, ItemStack.EMPTY);
     }
 
