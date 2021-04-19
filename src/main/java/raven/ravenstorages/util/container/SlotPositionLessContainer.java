@@ -9,11 +9,15 @@ import javax.annotation.Nullable;
  * Slotの座標を管理しないContainerの抽象実装です。
  *
  * <p>このクラスは{@link SlotPositionHoldingContainerScreen}の型引数の基底クラスとして使われる事を想定されており、
- * Containerの実装を一切変更しません。しかしこのクラスの実装者に対して追加の規約を規定します。
+ * Containerの実装を一切変更しない、マーカーインターフェースのようなクラスです。しかしこのサブクラスの実装者に対して追加の規約を規定します。
  *
  * <p>ContainerScreenの実装ではContainerのaddSlotメソッドで登録されたスロットが自身の描画される座標を保持している必要があります。
  * しかし、SlotPositionHoldingContainerScreenはSlotの保持する座標を無視して独自の座標管理を行います。
- * 従って、この抽象クラスの実装者及びその利用者はaddSlotメソッドの呼び出しにおいて、Slotの座標が無視される事に留意してください。
+ * 従って、サブクラスの実装者及びその利用者はaddSlotメソッドの呼び出しにおいて、Slotの座標が無視される事に留意してください。
+ *
+ * <p>サブクラスの実装者は、SlotPositionHoldingContainerScreenが各Slotの座標を計算するためにContainerが管理するSlotの取得を簡単にするための
+ * メソッドを定義し、ドキュメントを記述することが強く推奨されます。
+ * そのようなメソッドを定義しない場合でもinventorySlotsメソッドにより全てのSlotを取得できますが、その場合はindexとSlotの対応を明示的にドキュメント化すべきです。
  *
  * @see SlotPositionHoldingContainerScreen
  */
