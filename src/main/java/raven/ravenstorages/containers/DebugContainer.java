@@ -18,7 +18,7 @@ import java.util.List;
 
 import static java.util.Collections.unmodifiableList;
 
-public final class DebugContainer extends SlotPositionLessContainer {
+final class DebugContainer extends SlotPositionLessContainer {
     public static DebugContainer createServerSide(int windowId, PlayerInventory playerInventory) {
         return new DebugContainer(windowId, playerInventory);
     }
@@ -43,7 +43,7 @@ public final class DebugContainer extends SlotPositionLessContainer {
 
 
     private DebugContainer(int windowId, PlayerInventory playerInventory) {
-        super(RavenContainers.DEBUG_CONTAINER, windowId);
+        super(RavenContainers.DEBUG_CONTAINER.get(), windowId);
         mainItemHandler = new ItemStackHandler(MAIN_SLOT_COUNT);
         playerInventoryItemHandler = new PlayerMainInvWrapper(playerInventory);
 

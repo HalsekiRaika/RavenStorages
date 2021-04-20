@@ -16,7 +16,7 @@ import java.util.Map;
 
 import static raven.ravenstorages.RavenStorages.MOD_ID;
 
-public final class DebugContainerScreen extends SlotPositionHoldingContainerScreen<DebugContainer> {
+final class DebugContainerScreen extends SlotPositionHoldingContainerScreen<DebugContainer> {
     public DebugContainerScreen(DebugContainer screenContainer, PlayerInventory playerInventory, ITextComponent title) {
         super(screenContainer, playerInventory, title);
     }
