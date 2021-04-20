@@ -1,11 +1,7 @@
 package raven.ravenstorages;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
@@ -19,21 +15,19 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import raven.ravenstorages.blocks.RavenBlocks;
-import raven.ravenstorages.client.screen.DebugAnchorScreen;
-import raven.ravenstorages.containers.DebugContainerScreen;
-import raven.ravenstorages.containers.RavenContainers;
-import raven.ravenstorages.containers.RavenDefContainers;
-import raven.ravenstorages.tiles.RavenTiles;
 import raven.ravenstorages.capability.CapabilityDebugHandler;
 import raven.ravenstorages.capability.CapabilityDebugHandler.DebugHandler;
 import raven.ravenstorages.capability.SingleCapabilityProvider;
+import raven.ravenstorages.client.screen.DebugAnchorScreen;
+import raven.ravenstorages.containers.RavenContainers;
+import raven.ravenstorages.containers.RavenDefContainers;
 import raven.ravenstorages.item.RavenItems;
+import raven.ravenstorages.tiles.RavenTiles;
 
 import javax.annotation.Nonnull;
 
 import static raven.ravenstorages.RavenStorages.MOD_ID;
-import static raven.ravenstorages.containers.RavenContainers.DEBUG_CONTAINER;
-import static raven.ravenstorages.containers.RavenDefContainers.*;
+import static raven.ravenstorages.containers.RavenDefContainers.DEBUG_ANCHOR_CONTAINER;
 
 @Mod(MOD_ID)
 public final class RavenStorages {
@@ -45,8 +39,7 @@ public final class RavenStorages {
         RavenBlocks.register(modEventBus);
         RavenTiles.register(modEventBus);
         RavenItems.register(modEventBus);
-
-        modEventBus.addGenericListener(ContainerType.class, RavenContainers::register);
+        RavenContainers.register(modEventBus);
 
         //Deferred
         RavenDefContainers.onRegistration(modEventBus);
@@ -63,8 +56,6 @@ public final class RavenStorages {
     }
 
     private void clientSetup(@Nonnull FMLClientSetupEvent event) {
-        ScreenManager.registerFactory(DEBUG_CONTAINER, DebugContainerScreen::new);
-
         ScreenManager.registerFactory(DEBUG_ANCHOR_CONTAINER.get(), DebugAnchorScreen::new);
     }
 
