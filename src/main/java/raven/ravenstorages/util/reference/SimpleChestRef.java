@@ -1,10 +1,10 @@
-package raven.ravenstorages.client.screen.reference;
+package raven.ravenstorages.util.reference;
 
 import net.minecraft.util.ResourceLocation;
 
 import static raven.ravenstorages.RavenStorages.MOD_ID;
 
-public final class SimpleHopperRef {
+public final class SimpleChestRef {
     /** 透過部分も含んだテクスチャ全体のサイズ */
     public static final int TextureFullSizeX = 256;
     public static final int TextureFullSizeY = 256;
@@ -13,11 +13,9 @@ public final class SimpleHopperRef {
     public static final int TextureUISizeX = 176;
     public static final int TextureUISizeY = 166;
 
-    /** 搬入出部分の左上からの始点座標 */
-    public static final int LeftSlotPosX  = 62;
-    public static final int LeftSlotPosY  = 34;
-    public static final int RightSlotPosX = 98;
-    public static final int RightSlotPosY = 34;
+    /** チェスト部分の左上からの始点座標 */
+    public static final int ChestUIPosX = 62;
+    public static final int ChestUIPosY = 17;
 
     /** プレイヤーのインベントリ部分の左上からの始点座標 */
     public static final int PlayerInvPosX = 8;
@@ -28,6 +26,6 @@ public final class SimpleHopperRef {
     public static final int HotBarPosY = 142;
 
     public static ResourceLocation getTexture() {
-        return new ResourceLocation(MOD_ID, "textures/gui/simple_hopper");
+        return new ResourceLocation(MOD_ID, "textures/gui/simple_chest");
     }
 }

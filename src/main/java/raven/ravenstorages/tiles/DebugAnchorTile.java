@@ -11,9 +11,8 @@ import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import raven.ravenstorages.containers.DebugAnchorContainer;
+import raven.ravenstorages.containers.RavenContainers;
 
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import static raven.ravenstorages.RavenStorages.MOD_ID;
@@ -34,8 +33,8 @@ final class DebugAnchorTile extends LockableLootTileEntity {
     }
 
     @Override
-    protected Container createMenu(int id, @Nonnull PlayerInventory player) {
-        return DebugAnchorContainer.create(id, player, this);
+    protected Container createMenu(int id, PlayerInventory player) {
+        return RavenContainers.DEBUG_ANCHOR.get().create(id, player);
     }
 
     @Override

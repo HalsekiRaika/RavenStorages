@@ -23,8 +23,10 @@ public final class RavenContainers {
     private static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, MOD_ID);
 
     public static final RegistryObject<ContainerType<DebugContainer>> DEBUG_CONTAINER = CONTAINERS.register("debug_container", create(DebugContainer::createClientSide));
+    public static final RegistryObject<ContainerType<DebugAnchorContainer>> DEBUG_ANCHOR = CONTAINERS.register("debug_anchor", create(DebugAnchorContainer::createClientSide));
 
     public static final INamedContainerProvider DEBUG_CONTAINER_PROVIDER = new DebugContainerProvider();
+    public static final INamedContainerProvider DEBUG_ANCHOR_PROVIDER = new DebugAnchorContainerProvider();
 
     public static void register(@Nonnull IEventBus modEventBus) {
         CONTAINERS.register(modEventBus);
@@ -33,6 +35,7 @@ public final class RavenContainers {
 
     private static void registerScreen(@Nonnull FMLClientSetupEvent event) {
         ScreenManager.registerFactory(DEBUG_CONTAINER.get(), DebugContainerScreen::new);
+        ScreenManager.registerFactory(DEBUG_ANCHOR.get(), DebugAnchorScreen::new);
     }
 
     @Nonnull

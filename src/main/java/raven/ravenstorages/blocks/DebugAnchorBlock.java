@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -12,6 +13,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
+import raven.ravenstorages.containers.RavenContainers;
 import raven.ravenstorages.library.base.impl.IHasBlockItem;
 import raven.ravenstorages.library.functional.block.IWrenchRetrievable;
 import raven.ravenstorages.tiles.RavenTiles;
@@ -41,21 +44,12 @@ final class DebugAnchorBlock extends Block implements IWrenchRetrievable, IHasBl
     @Nonnull
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (!worldIn.isRemote) {
-            INamedContainerProvider inamedcontainerprovider = this.getContainer(state, worldIn, pos);
-            if (inamedcontainerprovider != null) {
-                player.openContainer(inamedcontainerprovider);
-            }
+        if(worldIn.isRemote()) return ActionResultType.SUCCESS;
+        if(!(player instanceof ServerPlayerEntity)) return ActionResultType.FAIL;
 
-        }
+        ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+        NetworkHooks.openGui(serverPlayer, RavenContainers.DEBUG_ANCHOR_PROVIDER);
+
         return ActionResultType.SUCCESS;
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    @Nullable
-    public INamedContainerProvider getContainer(BlockState state, World world, BlockPos pos) {
-        TileEntity tileentity = world.getTileEntity(pos);
-        return tileentity instanceof INamedContainerProvider ? (INamedContainerProvider) tileentity : null;
     }
 }
