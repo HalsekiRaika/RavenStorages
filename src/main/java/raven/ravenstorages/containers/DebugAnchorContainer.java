@@ -57,7 +57,7 @@ final class DebugAnchorContainer extends SlotPositionLessContainer {
         }
 
         for (int addSlotNum = 0; addSlotNum < CONTAINER_INV_SIZE; addSlotNum++) {
-            SlotItemHandler handler = posLessSlot(pInvItemHandler, addSlotNum + PLAYER_INV_SIZE + PLAYER_HOTBAR_INV_SIZE);
+            SlotItemHandler handler = posLessSlot(containerItemHandler, addSlotNum);
             this.addSlot(handler);
             containerInv.add(handler);
         }
