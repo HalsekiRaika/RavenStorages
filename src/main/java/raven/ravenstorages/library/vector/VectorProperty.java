@@ -268,6 +268,16 @@ public class VectorProperty {
         return this;
     }
 
+    public VectorProperty normalize() {
+        double mag = magnitude();
+        if (mag != 0) { multiply(1 / mag); }
+        return this;
+    }
+
+    public double magnitude() {
+        return Math.sqrt(vecX * vecX + vecY * vecY + vecZ * vecZ);
+    }
+
     // Entity
     public static VectorProperty atCorner(Entity entity) {
         return new VectorProperty(entity.getPosX(), entity.getPosY(), entity.getPosZ());
