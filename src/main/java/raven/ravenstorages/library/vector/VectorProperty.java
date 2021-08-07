@@ -3,6 +3,7 @@ package raven.ravenstorages.library.vector;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.math.vector.Vector3i;
@@ -76,15 +77,15 @@ public class VectorProperty {
         return this.vecZ;
     }
 
-    public Vector3d ToVector3d() {
+    public Vector3d toVector3d() {
         return new Vector3d(this.vecX, this.vecY, this.vecZ);
     }
 
-    public Vector3i ToVector3i() {
+    public Vector3i toVector3i() {
         return new Vector3i(this.vecX, this.vecY, this.vecZ);
     }
 
-    public Vector3f ToVector3f() {
+    public Vector3f toVector3f() {
         return new Vector3f(((float) this.vecX), ((float) this.vecY), ((float) this.vecZ));
     }
 
@@ -276,6 +277,69 @@ public class VectorProperty {
 
     public double magnitude() {
         return Math.sqrt(vecX * vecX + vecY * vecY + vecZ * vecZ);
+    }
+
+    public VectorProperty crossProduct(VectorProperty vector) {
+        double da = vecY * vector.vecZ - vecZ * vector.vecY;
+        double db = vecZ * vector.vecX - vecX * vector.vecZ;
+        double dc = vecX * vector.vecY - vecY * vector.vecX;
+        this.vecX = da;
+        this.vecY = db;
+        this.vecZ = dc;
+        return this;
+    }
+
+    public VectorProperty perpendicular() {
+        if (this.vecZ == 0) { return crossProductZ(); }
+        return crossProductX();
+    }
+
+    public VectorProperty crossProductX() {
+        double da = this.vecZ;
+        double db = -this.vecY;
+        this.vecX = 0;
+        this.vecY = da;
+        this.vecZ = db;
+        return this;
+    }
+
+    public VectorProperty crossProductY() {
+        double da = -this.vecZ;
+        double db = this.vecX;
+        this.vecX = da;
+        this.vecY = 0;
+        this.vecZ = db;
+        return this;
+    }
+
+    public VectorProperty crossProductZ() {
+        double da = this.vecY;
+        double db = -this.vecX;
+        this.vecX = da;
+        this.vecY = db;
+        this.vecZ = 0;
+        return this;
+    }
+
+    public VectorProperty rotate(double angle, VectorProperty axis) {
+        QuaternionProperty.axisAngle(axis.copy().normalize(), angle).rotate(this);
+        return this;
+    }
+
+    public VectorProperty rotate(QuaternionProperty quat) {
+        quat.rotate(this);
+        return this;
+    }
+
+    public double distance(VectorProperty target) {
+        return getDistance(this.vecX, this.vecY, this.vecZ, target.vecX, target.vecY, target.vecZ);
+    }
+
+    public static double getDistance(double xA, double yA, double zA, double xB, double yB, double zB) {
+        double dx = xA - xB;
+        double dy = yA - yB;
+        double dz = zA - zB;
+        return MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
     }
 
     // Entity
